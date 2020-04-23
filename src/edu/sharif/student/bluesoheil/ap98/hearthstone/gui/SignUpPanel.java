@@ -19,9 +19,6 @@ public class SignUpPanel extends StartPanel {
     private JLabel pass1Label;
     private JLabel pass2Label;
     private JLabel message;
-    private int x1;
-    private int x2;
-    private int y0;
 
     public SignUpPanel() {
         super();
@@ -42,9 +39,7 @@ public class SignUpPanel extends StartPanel {
 
     @Override
     protected void init() {
-        x1 = getX1Inset();
-        x2 = getX2Inset();
-        y0 = getYInset();
+        super.init();
 
         userLabel.setBounds(x1, y0, 80, 25);
         pass1Label.setBounds(x1, y0 = y0 + 30, 80, 25);

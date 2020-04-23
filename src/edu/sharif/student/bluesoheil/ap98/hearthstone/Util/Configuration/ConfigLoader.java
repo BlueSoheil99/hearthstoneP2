@@ -17,6 +17,10 @@ public class ConfigLoader {
     private Configs constants;
     private Configs frameConfigs;
     private Configs panelConfigs;
+    private Configs startPanelConfigs;
+    private Configs playerConfigs;
+    private Configs menuConfigs;
+    private Configs guiConstants;
     private Configs properties;
 
     private ConfigLoader(String configsSourceAddress) {
@@ -52,7 +56,6 @@ public class ConfigLoader {
     }
 
     private void loadProperties() {
-
 //        Set<Map.Entry<Object, Object>> entries = addressess.get("RESOURCE_URL").entrySet();
 //        for (Map.Entry entry : entries) {
 //            System.out.println(entry.getKey() + " " + entry.getValue());
@@ -65,10 +68,10 @@ public class ConfigLoader {
             String lowerCase = key.toLowerCase();
             if (!lowerCase.contains("url")) {
                 Configs property = new Configs();
+                File test = new File(adrs);
                 try {
-                    File test = new File(adrs);
-                    System.out.println(test.getAbsolutePath());
                     FileReader reader = new FileReader(test);
+//                    System.out.println(test.getAbsolutePath());
                     property.load(reader);
 
                 } catch (FileNotFoundException e) {
@@ -81,48 +84,71 @@ public class ConfigLoader {
 
                 if (lowerCase.contains("frame")) {
 //                    System.out.println("frame added : " + key);
-//                    frameConfigs.put(key, property);
                     frameConfigs = property;
-                } else if (lowerCase.contains("panel")) {
+
+                } else if (lowerCase.contains("startpanel")) {
+                    startPanelConfigs = property;
+
+                } else if (lowerCase.contains("player")) {
+                    playerConfigs = property;
+
+                }else if (lowerCase.contains("menu")){
+                    menuConfigs = property;
+
+                }else if (lowerCase.contains("panel")) {
 //                    System.out.println("panels added : " + key);
-//                    panelConfigs.put(key, property);
                     panelConfigs = property;
-                } else if (lowerCase.contains("constants")) {
+                }else if (lowerCase.contains("guiconstants")) {
+                    guiConstants = property;
+
+                }else if (lowerCase.contains("constants")) {
 //                    System.out.println("constants added : " + key);
-//                    constants.put(key, property);
                     constants = property;
 
                 } else
-//                    properties.put(key, property);
                     properties = property ;
 
 
             }
         }
-        System.out.println("loading finished! ");
+//        System.out.println("loading finished! ");
     }
 
-    protected Configs getConstantsProperties(String name) {
-//        System.out.println("in get properties with name : " + name);
-//        return constants.get(name);
-        return constants;
-    }
+    // due to subPackages we couldn't have protected methods here
 
     public String getAddress( String resource_url) {
 //        return addressess.get(type).getProperty(resource_url);
         return addresses.getProperty(resource_url);
     }
 
-//    public String getAddress(String resource_url) {
-//        return getAddress(addressName, resource_url);
-//    }
+    public Configs getConstantsProperties() {
+//        System.out.println("in get properties with name : " + name);
+//        return constants.get(name);
+        return constants;
+    }
 
-    protected Configs getFrameProperties(String name) {
+    public Configs getFrameProperties() {
 //        return frameConfigs.get(name);
         return frameConfigs;
     }
 
-    protected Configs getPanelProperties(String name) {
+    public Configs getPanelProperties() {
         return panelConfigs;
+    }
+
+    public Configs getStartPanelProperties() {
+        return startPanelConfigs;
+    }
+
+    public Configs getPlayerProperties(){
+        return playerConfigs;
+    }
+
+    public Configs getMenuProperties(){
+        return menuConfigs;
+    }
+
+    public Configs getGuiConstantsProperties(){
+        return guiConstants;
     }
 }

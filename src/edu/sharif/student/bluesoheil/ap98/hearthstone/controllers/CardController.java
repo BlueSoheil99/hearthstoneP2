@@ -2,7 +2,7 @@ package edu.sharif.student.bluesoheil.ap98.hearthstone.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Constants;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Configuration.Constants;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Cards.Card;
 
 import java.io.FileWriter;

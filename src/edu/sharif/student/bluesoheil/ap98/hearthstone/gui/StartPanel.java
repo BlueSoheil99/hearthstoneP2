@@ -1,5 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
+import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Configuration.GuiConfigs.StartPanelConfig;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.ImageLoader;
 
 import javax.swing.*;
@@ -7,21 +8,18 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class StartPanel extends JPanel {
-
-    private JLabel backGround;
+//    private JLabel backGround;
     private JLabel logo;
-    private int width = 640;
-    private int height = 480;
-    private int labelWidth=80;
-    private int fieldWidth=150;
-    private int X1Inset=width/2-(labelWidth+fieldWidth)/2;
-    private int X2Inset=X1Inset+labelWidth;
-    private int YInset= 4*height/11;
-//    private int;
+    private StartPanelConfig config;
+    private String logoPath, backGroundPath;
+    private int width, height;
+    private int labelWidth , fieldWidth;
+    private int X1Inset,X2Inset,YInset;
+    protected int x1, x2, y0;
 
-
-//todo don't forget to use properties for configuration
     public StartPanel(){
+        loadConfig();
+//        loadNormally();
         setSize(new Dimension( width , height));
         setBackground(Color.white);
 
@@ -34,23 +32,39 @@ public abstract class StartPanel extends JPanel {
 //        backGround.setBounds(0,0,getWidth(),getHeight());
 //        add(backGround);
 
-        //todo handle configuration
-        ImageIcon imageIcon = new ImageIcon("src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/Hearthstone_2016_logo.png");
+        ImageIcon imageIcon = new ImageIcon(logoPath);
         logo = new JLabel("",imageIcon,JLabel.CENTER);
         logo.setBounds(0,0,getWidth(),getHeight()/2);
         add(logo);
-//        repaint();
         createFields();
         setLayout(null);
         init();
     }
 
-    public int getLabelWidth() {
-        return labelWidth;
+    private void loadConfig(){
+        config = StartPanelConfig.getInstance();
+        logoPath = config.getLogoURL();
+        backGroundPath = config.getBackGroundURL();
+        width = config.getWidth();
+        height = config.getHeight();
+        labelWidth = config.getLabelWidth();
+        fieldWidth = config.getFieldWidth();
+        X1Inset=width/2-(labelWidth+fieldWidth)/2;
+        X2Inset=X1Inset+labelWidth;
+        YInset= 4*height/11;
     }
-    public int getFieldWidth() {
-        return fieldWidth;
+    private void loadNormally(){
+        logoPath = "src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/Hearthstone_2016_logo.png";
+        backGroundPath = "src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/7ho000lptrr01.jpg";
+        width = 640;
+        height = 480;
+        labelWidth = 80;
+        fieldWidth = 150;
+        X1Inset=width/2-(labelWidth+fieldWidth)/2;
+        X2Inset=X1Inset+labelWidth;
+        YInset= 4*height/11;
     }
+
     public int getX1Inset() {
         return X1Inset;
     }
@@ -64,10 +78,16 @@ public abstract class StartPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        BufferedImage img = ImageLoader.loadImage("src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/7ho000lptrr01.jpg");
-        g.drawImage(img,0,0,getWidth(),getHeight(),null);
+        BufferedImage img = ImageLoader.loadImage(backGroundPath);
+        g.drawImage(img,0,0,width,height,null);
     }
 
     protected abstract void createFields();
-    protected abstract void init();
+
+    protected void init(){
+        x1 = getX1Inset();
+        x2 = getX2Inset();
+        y0 = getYInset();
+    }
+
 }

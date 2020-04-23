@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Constants;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Configuration.Constants;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.log.Logger;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
@@ -137,7 +137,7 @@ public class PlayerController {
             FileWriter writer = new FileWriter(player.getProfilePath());
             PrintWriter printer = new PrintWriter(writer);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(this);
+            String json = gson.toJson(player);
             printer.println( json );
             printer.close();
         }catch (IOException e ){

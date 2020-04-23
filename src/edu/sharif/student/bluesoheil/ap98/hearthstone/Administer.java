@@ -1,9 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.LoginPanel;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.MainFrame;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.MenuPanel;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.SignUpPanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.*;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.PlayerController;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
 
@@ -43,7 +40,31 @@ public class Administer {
 
     public void runMenu(){
         MenuPanel menuPanel = new MenuPanel();
+        recentPanels.add(menuPanel);
         mainFrame.initFrame(menuPanel);
+    }
+
+    public void runPlay(){
+        PlayPanel playPanel = new PlayPanel();
+        recentPanels.add(playPanel);
+        mainFrame.initFrame(playPanel);
+    }
+    public void runShop(){
+        ShopPanel shopPanel = new ShopPanel();
+        recentPanels.add(shopPanel);
+        mainFrame.initFrame(shopPanel);
+    }
+
+    public void runStatus(){
+        StatusPanel statusPanel = new StatusPanel();
+        recentPanels.add(statusPanel);
+        mainFrame.initFrame(statusPanel);
+    }
+
+    public void runCollection(){
+        CollectionPanel collectionPanel = new CollectionPanel();
+        recentPanels.add(collectionPanel);
+        mainFrame.initFrame(collectionPanel);
     }
 
     public void back(){
@@ -66,6 +87,7 @@ public class Administer {
 
     public void login(String username , String password) throws Exception{
         playerController.login(username , password);
+        //todo all information must be loaded here
     }
 
     public Player getCurrentPlayer(){

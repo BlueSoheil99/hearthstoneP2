@@ -16,9 +16,7 @@ public class LoginPanel extends StartPanel {
     private JLabel passLabel;
     private JButton signUpBtn;
     private  JLabel message;
-    private int x1;
-    private int x2;
-    private int y0;
+
 
     public LoginPanel(){
         super();
@@ -37,10 +35,7 @@ public class LoginPanel extends StartPanel {
 
     @Override
     protected void init(){
-
-        x1 = getX1Inset();
-        x2 = getX2Inset();
-        y0 = getYInset();
+        super.init();
 
         userLabel.setBounds(x1, y0, 80, 25);
         passLabel.setBounds(x1, y0 = y0 + 30, 80, 25);
@@ -94,7 +89,7 @@ public class LoginPanel extends StartPanel {
             Administer.getInstance().login(username , password);
             message.setText("hello "+username.toUpperCase() );
             message.setForeground(Color.GREEN);
-//            Administer.getInstance().runMenu();
+            Administer.getInstance().runMenu();
 
         } catch (Exception e) {
             e.printStackTrace();

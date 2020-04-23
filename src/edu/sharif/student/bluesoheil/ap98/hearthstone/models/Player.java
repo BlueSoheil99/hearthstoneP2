@@ -1,6 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.models;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Constants;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Configuration.Constants;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Configuration.LogicConfigs.PlayerConfig;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,9 +23,10 @@ public class Player {
 
 
     //todo next 20 lines must be in configuration
-    private static String[] defaultPlayerTotalCards = { "Super Collider"  , "Friendly Smith" , "Polymorph" ,
-            "Humility" , "Innervate" , "Omega Medic" , "Waterboy" , "Voodoo doctor" , "Slam" ,"Dreadscale"
-            , "Abomination" , "Murloc Tidehunter"  };
+    private static String[] defaultPlayerTotalCards = PlayerConfig.getInstance().getDefaultCards();
+//            = { "Super Collider"  , "Friendly Smith" , "Polymorph" ,
+//            "Humility" , "Innervate" , "Omega Medic" , "Waterboy" , "Voodoo doctor" , "Slam" ,"Dreadscale"
+//            , "Abomination" , "Murloc Tidehunter"  };
     private static HashMap<String , ArrayList<String>>  defaultDeckCards = new HashMap<String , ArrayList<String>>() ;
     {
         ArrayList<String> list = new ArrayList<>();
