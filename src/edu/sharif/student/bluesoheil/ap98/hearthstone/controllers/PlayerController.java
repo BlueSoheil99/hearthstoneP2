@@ -4,37 +4,61 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.Configuration.Constants;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.log.LogTypes;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Util.log.Logger;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Deck;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.Constants;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class PlayerController {
+
     private static PlayerController playerController;
     private static String profilesPath = Constants.getProfilesPath();
+
     private Player currentPlayer;
 
-    private PlayerController(){
-    }
+    private PlayerController(){  }
 
+    /*
+     **** getters and setters
+     */
     public static PlayerController getInstance(){
         if (playerController != null) return playerController;
         playerController = new PlayerController();
         return playerController;
     }
 
-    // getters and setters
     public Player getCurrentPlayer(){
         return currentPlayer;
     }
 
-    // methods
-    public void signUp(String username , String password) throws Exception {
+    public int getPlayerCoins() {
+        return currentPlayer.getCoins();
+    }
+
+    public void setPlayerCoins(int i) {
+        currentPlayer.setCoins(i);
+    }
+
+    public void setPlayerCards(ArrayList<Card> playerTotalCards) {
+        currentPlayer.setPlayerTotalCards(playerTotalCards);
+    }
+
+    public ArrayList<Deck> getPlayerDecks() {
+        return currentPlayer.getPlayerDecks();
+    }
+
+
+    /*
+     **** Methods
+     */
+    public void signUp(String username , String password) throws PlayerControllerException {
         if (new File(profilesPath +"/" + username + ".json").exists()) {
-            throw new Exception("USERNAME IS INVALID");
+            throw new PlayerControllerException("USERNAME IS INVALID");
         } else {
             Player player = new Player(username, password);
             saveDataForTheFirstTime(player);
@@ -42,20 +66,33 @@ public class PlayerController {
         }
     }
 
-    public void login(String username , String password) throws Exception{
+    public void login(String username , String password) throws PlayerControllerException {
         if (allPlayersContain(username, password)) {
-//                    CardManagement.initGameTotalCards(); //we'd better use this method at the beginning of whole RUN
-            setCurrentPlayer(getPlayer(username));
+//            CardController.getInstance().initGameTotalCards();
+            currentPlayer = getPlayer(username);
             //todo load the carts here or in setCurrentPlayer
+            CardController.getInstance().loadPlayerCards();
+            DeckController.getInstance().loadPlayerDecks();
+
+//            Logger.initLogger(currentPlayer);
+//            Logger.log(LogTypes.PLAYER , currentPlayer.getUserName()+" logged in");
+
         } else {
-            throw new  Exception("username or password is incorrect");
+            throw new  PlayerControllerException("username or password is incorrect");
         }
     }
 
-    public void deletePlayer(String password){
+    public void deletePlayer(String password) throws PlayerControllerException {
         if(password.equals(currentPlayer.getPassword())){
-            Logger.finalizeLogfile(currentPlayer);
-            // todo deletePlayer
+            File file= new File(currentPlayer.getProfilePath());
+            if ( ! file.delete()){
+                throw new PlayerControllerException(" Deleting failed ");
+            }else {     //when deleting is done successfully
+                Logger.finalizeLogfile(currentPlayer);
+            }
+        }
+        else{
+            throw new PlayerControllerException(" Wrong password ");
         }
     }
 
@@ -64,8 +101,7 @@ public class PlayerController {
         saveData();
         Logger.log(LogTypes.PLAYER ,currentPlayer.getUserName()+" logged out" );
         Logger.closeLogfile();
-        Administer.getInstance().runLogin();
-
+//        currentPlayer = null; you might need this line
     }
 
     private boolean allPlayersContain(String username , String password) {
@@ -88,33 +124,14 @@ public class PlayerController {
             // if passwords don't match, we handle the exception with no message and we print an error in CLIRunner instead
             // , because this method is designed to give us true or false and "exception" is not expected from allPlayersContain
 
-        }catch(FileNotFoundException e){       } //we display a message instead in CLI_Runner
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
         catch (IOException e) {
             e.printStackTrace();
         }
 
         return ans;
-    }
-
-    private void setCurrentPlayer(Player player) {
-        currentPlayer = player;
-//        CardManagement.loadPlayerTotalCards();
-//        CardManagement.loadPlayerHeroesAllDeckCards();
-//        try {
-//            CardManagement.setCurrentHero(player.getCurrentHero());
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            CardManagement.setCurrentHero(player.getCurrentHero());
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-
-        Logger.initLogger(player);
-        Logger.log(LogTypes.PLAYER , currentPlayer.getUserName()+" logged in");
-
     }
 
     private Player getPlayer(String username){
@@ -132,6 +149,12 @@ public class PlayerController {
         return player;
     }
 
+    private void saveData(){
+//        setPlayerTotalCards(CardManagement.getPlayerTotalCards() );
+//        setHeroesAllDeckCards(CardManagement.getHeroesAllDeckCards() );
+        saveDataForTheFirstTime(currentPlayer); //todo check if we can merge these 2 methods or not
+    }
+
     private void saveDataForTheFirstTime(Player player){
         try{
             FileWriter writer = new FileWriter(player.getProfilePath());
@@ -143,12 +166,6 @@ public class PlayerController {
         }catch (IOException e ){
             System.out.println(e.getMessage());
         }
-    }
-
-    public void saveData(){
-//        setPlayerTotalCards(CardManagement.getPlayerTotalCards() );
-//        setHeroesAllDeckCards(CardManagement.getHeroesAllDeckCards() );
-//        saveDataForTheFirstTime();
     }
 
 
