@@ -8,7 +8,7 @@ public class GuiConstants extends GuiConfig {
     private Configs properties;
     private int gameWidth, gameHeight, cardWidth, cardHeight;
     private int numberOfCardsInRow;
-    private String exitIconPath, backIconPath, filterIconPath, coinsIconPath;
+    private String exitIconPath, backIconPath, filterIconPath, coinsIconPath , logOutPath;
 
     private GuiConstants() {
         super();
@@ -35,6 +35,7 @@ public class GuiConstants extends GuiConfig {
         exitIconPath = properties.getProperty("exitURL");
         backIconPath = properties.getProperty("backURL");
         filterIconPath = properties.getProperty("filterURL");
+        logOutPath = properties.getProperty("logOutURL");
 
     }
 
@@ -73,5 +74,9 @@ public class GuiConstants extends GuiConfig {
 
     public String getCoinsIconPath() {
         return coinsIconPath;
+    }
+
+    public String getLogOutPath() {
+        return logOutPath;
     }
 }

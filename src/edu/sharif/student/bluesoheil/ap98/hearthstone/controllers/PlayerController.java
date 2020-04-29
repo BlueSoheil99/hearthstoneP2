@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Deck;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.Constants;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Log;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
@@ -88,6 +89,8 @@ public class PlayerController {
             if ( ! file.delete()){
                 throw new PlayerControllerException(" Deleting failed ");
             }else {     //when deleting is done successfully
+                Logger.log(LogTypes.PLAYER , "successfully deleted.");
+                Logger.closeLogfile(); //according to finalizeLogfile method we should first close logFile normally and then finalize log
                 Logger.finalizeLogfile(currentPlayer);
             }
         }

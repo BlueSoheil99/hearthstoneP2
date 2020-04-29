@@ -1,15 +1,10 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
-
 import javax.swing.*;
-import java.awt.*;
 
-public class MainFrame extends JFrame{
-//    LoginPanel loginPanel;
-//    Administer administer;
+public class MainFrame extends JFrame {
 
-    public MainFrame(){
+    public MainFrame() {
         setTitle("HearthStone");
         setResizable(false);
         setVisible(true);
@@ -17,7 +12,7 @@ public class MainFrame extends JFrame{
 
     }
 
-    public void initFrame(JPanel panel){
+    public void initFrame(JPanel panel) {
         setContentPane(panel);
         setPreferredSize(panel.getSize());
 //        getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());

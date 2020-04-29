@@ -1,15 +1,14 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.*;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.*;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter.LoginPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter.SignUpPanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.*;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Deck;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.*;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
@@ -110,31 +109,37 @@ public class Administer {
     }
 
     public void runExit() {
-        //todo save everything, ask for confirm,
-        playerController.logOut();
-//        Logger.log(LogTypes.PLAYER, "logged out");
-//        Logger.closeLogfile();
-        System.exit(0); //or runLogin?
-
+        //i've put confirmDialog so I didn't duplicate code in exit button class and exit button in menuPanel
+        int ans = JOptionPane.showConfirmDialog(null, "Are You Sure You Want to Exit?",
+                "Confirm Exit", JOptionPane.YES_NO_OPTION);
+        if (ans == JOptionPane.YES_OPTION) {
+            playerController.logOut();
+            System.exit(0);
+        }
     }
 
     public void back() {
-        Logger.log(LogTypes.CLICK_BUTTON, "Back selected");
+        Logger.log(LogTypes.NAVIGATION, "Back to previous panel");
         mainFrame.initFrame(getPreviousPanel());
     }
 
     public JPanel getPreviousPanel() {
         JPanel previousPanel = null;
         recentPanels.remove(recentPanels.size() - 1); //i don't know how to explain! it's like closing the last panel...
-                                                            // ... if we don't do this we will have logical errors.
+        // ... if we don't do this we will have logical errors.
         previousPanel = recentPanels.get(recentPanels.size() - 1);
         return previousPanel;
     }
 
     public void runLogout() {
         playerController.logOut();
-        Administer.getInstance().runLogin();
+        Main.main(null);
+    }
 
+    public void deletePlayer(String password) throws PlayerControllerException {
+        playerController.deletePlayer(password);
+        JOptionPane.showMessageDialog(null , "You deleted your profile successfully");
+        System.exit(0);
     }
 
     /*
@@ -163,23 +168,29 @@ public class Administer {
 
     }
 
-    public ArrayList<CardShape> filterCards(int Mana) {
+    public ArrayList<CardShape> getCards(int Mana) {
         // CardController.getInsatnce().filterWithSpecificProperties :)
         return null;
 
     }
-    public ArrayList<CardShape> filterCards() {
+
+    public ArrayList<CardShape> getCards() {
         ArrayList<CardShape> cardShapes = new ArrayList<>();
-        for (Map.Entry<String , BufferedImage> entry : cardController.getCardsAndImagesMap().entrySet()){
-            cardShapes.add(new CardShape(entry.getKey() , entry.getValue()));
+        for (Map.Entry<String, BufferedImage> entry : cardController.getCardsAndImagesMap().entrySet()) {
+            cardShapes.add(new CardShape(entry.getKey(), entry.getValue()));
         }
         return cardShapes;
 
     }
 
-    public int getPlayerCoins(){
+    public int getPlayerCoins() {
         return playerController.getPlayerCoins();
     }
+
+    public int getCardCost(String selectedCard) {
+        return cardController.getCardCost(selectedCard);
+    }
+
     public void buyCard(String cardName) throws CardControllerException {
         cardController.buyCard(cardName);
     }
@@ -192,17 +203,18 @@ public class Administer {
 
     }
 
-    public HashMap<String,String> getPlayerDecks(){
-        ArrayList<Deck> decks =deckController.getPlayerDecks();
-        HashMap<String,String> decksInfo = new HashMap<>();
-        for (Deck deck : decks ) {
-            decksInfo.put(deck.getName() , deck.getHero().toString());
+    public HashMap<String, String> getPlayerDecks(int numberOfDecks) {
+        HashMap<String, String> decksInfo = new HashMap<>();
+        int x = 0;
+        for (Deck deck : deckController.getPlayerDecks()) {
+            if (x < numberOfDecks) {
+                decksInfo.put(deck.getName(), deck.getHero().toString());
+            }
         }
         return decksInfo;
     }
 
-
-    public int getCardCost(String selectedCard) {
-        return cardController.getCardCost(selectedCard);
+    public String[] getDeckState(String deckName) {
+        return deckController.getDeckStates(deckName);
     }
 }

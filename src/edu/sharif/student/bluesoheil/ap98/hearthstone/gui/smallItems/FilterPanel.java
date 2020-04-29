@@ -90,7 +90,7 @@ public class FilterPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = searchFiled.getText();
-                Administer.getInstance().filterCards();
+                Administer.getInstance().getCards();
             }
         });
     }

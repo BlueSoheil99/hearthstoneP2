@@ -86,6 +86,7 @@ public class Deck {
     public void setWins(int wins) { this.wins = wins; }
 
     public float getWinRatio() {
+        if (gamesPlayed == 0) return 0;
         return Math.round((float)wins/gamesPlayed *100) / (float)100 ;
     }
 

@@ -4,8 +4,9 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.ClickListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.CardControllerException;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.NavigationPanel;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.ConfigLoader;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.SidePanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Log;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 
@@ -16,14 +17,17 @@ import java.awt.event.ActionListener;
 
 public class ShopPanel extends GamePanel {
     private GuiConstants properties;
-    private JPanel controlPanel;
+    private SidePanel controlPanel;
     private CardPanel cardPanel;
     private String selectedCard;
 
     private JLabel coins, selectLabel, cardLabel, costLabel;
     private JButton sellBtn;
     private JButton buyBtn;
-    private Font font;
+
+    public ShopPanel(){
+        super();
+    }
 
     @Override
     protected void loadConfig() {
@@ -33,7 +37,7 @@ public class ShopPanel extends GamePanel {
     @Override
     protected void createFields() {
         cardPanel = new CardPanel();
-        cardPanel.setCards(Administer.getInstance().filterCards());
+        cardPanel.setCards(Administer.getInstance().getCards());
         cardPanel.setClickListener(new ClickListener() {
             @Override
             public void select(String selectedCardName) {
@@ -53,41 +57,37 @@ public class ShopPanel extends GamePanel {
     }
 
     private void createControlPanel() {
-        font = new Font("serif", Font.BOLD, 40);
-        controlPanel = new JPanel();
-        controlPanel.setPreferredSize(new Dimension(getWidth() / 5, getHeight()));
-        controlPanel.setBackground(new Color(168, 118, 94));
-        controlPanel.setBorder(BorderFactory.createMatteBorder(20, 5, 40, 5, new Color(0x562C1C)));
+        controlPanel = new SidePanel(getWidth() / 5, getHeight());
         createControllerComponents();
-        initControllerComponents();
+        addControllerComponents();
     }
 
     private void createControllerComponents() {
         int playerCoins = Administer.getInstance().getPlayerCoins();
         coins = new JLabel(Integer.toString(playerCoins));
         coins.setIcon(new ImageIcon(properties.getCoinsIconPath()));
-        coins.setFont(font);
+        coins.setFont(controlPanel.getFont1());
 
         selectLabel = new JLabel("selected card: ");
-        selectLabel.setFont(font);
+        selectLabel.setFont(controlPanel.getFont1());
         cardLabel = new JLabel(selectedCard);
-        cardLabel.setFont(font);
+        cardLabel.setFont(controlPanel.getFont2());
 
         costLabel = new JLabel("card cost: " + getSelectedCardCost());
-        costLabel.setFont(font);
+        costLabel.setFont(controlPanel.getFont1());
 
         sellBtn = new JButton("Sell");
-        sellBtn.setFont(font);
+        sellBtn.setFont(controlPanel.getFont1());
         sellBtn.setContentAreaFilled(false);
 
         buyBtn = new JButton("Buy");
-        buyBtn.setFont(font);
+        buyBtn.setFont(controlPanel.getFont1());
         buyBtn.setContentAreaFilled(false);
 
         setControllerActionListeners();
     }
 
-    private void initControllerComponents() {
+    private void addControllerComponents() {
         controlPanel.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(5, 5, 5, 5);
@@ -142,7 +142,7 @@ public class ShopPanel extends GamePanel {
         sellBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Logger.log(LogTypes.CLICK_BUTTON , "Sell Button selected");
+                Logger.log(LogTypes.CLICK_BUTTON , "button: SELL selected .");
 
                 if (selectedCard != null) {
                     //todo add image to confirm msg
@@ -179,7 +179,7 @@ public class ShopPanel extends GamePanel {
         buyBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Logger.log(LogTypes.CLICK_BUTTON , "Buy Button selected");
+                Logger.log(LogTypes.CLICK_BUTTON , "button: BUY selected .");
 
                 if (selectedCard != null) {
                     int result = JOptionPane.showConfirmDialog(null,

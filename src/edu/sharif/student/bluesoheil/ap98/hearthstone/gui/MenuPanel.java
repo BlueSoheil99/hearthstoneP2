@@ -1,6 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.LogOutButton;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.MenuConfig;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.ImageLoader;
 
@@ -16,11 +17,8 @@ public class MenuPanel extends GamePanel {
     private String bgPath, fontName;
     private int fontSize;
     private JLabel welcomeMsg;
-    private JButton playBtn , shopBtn, statusBtn, collectionBtn, settingBtn;
+    private JButton playBtn, shopBtn, statusBtn, collectionBtn, settingBtn;
     private JButton exitBtn;
-
-//    private JLabel logo;
-
 
     public MenuPanel() {
         super();
@@ -37,8 +35,8 @@ public class MenuPanel extends GamePanel {
     @Override
     protected void createFields() {
 
-        welcomeMsg = new JLabel("Hello "+ Administer.getInstance().getCurrentPlayer().getUserName()+" :) ");
-        welcomeMsg.setFont(new Font("Arial", Font.ITALIC, 60) );
+        welcomeMsg = new JLabel("Hello " + Administer.getInstance().getCurrentPlayer().getUserName() + " :) ");
+        welcomeMsg.setFont(new Font("Arial", Font.ITALIC, 60));
         welcomeMsg.setForeground(Color.white);
 
         playBtn = new MenuButton("Play");
@@ -46,38 +44,8 @@ public class MenuPanel extends GamePanel {
         statusBtn = new MenuButton("Status");
         collectionBtn = new MenuButton("Collection");
         settingBtn = new MenuButton("Setting");
-        exitBtn = new MenuButton("Exit");
+        exitBtn = new MenuButton("EXIT");
         exitBtn.setForeground(Color.RED);
-//        exitBtn.setIcon(new ImageIcon("src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/exit.png"));
-
-    }
-
-
-    @Override
-    protected void init() {
-//        add(NavigationPanel.getInstance(), BorderLayout.EAST);
-        setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(5, 15, 5, getWidth()*2/3);
-
-        c.gridx=0;
-        c.gridy=0;
-        c.anchor = GridBagConstraints.SOUTH;
-        c.weighty = 6;
-        add(welcomeMsg,c);
-
-        c.anchor = GridBagConstraints.CENTER;
-
-        c.gridy = GridBagConstraints.RELATIVE;
-        c.weighty = 1;
-//        c.gridwidth =1;
-        add(playBtn, c);
-
-        add(shopBtn, c);
-        add(statusBtn, c);
-        add(collectionBtn, c);
-        add(settingBtn, c);
-        add(exitBtn, c);
 
         setPlayListener();
         setShopListener();
@@ -85,10 +53,35 @@ public class MenuPanel extends GamePanel {
         setCollectionListener();
         setSettingListener();
         setExitListener();
+    }
+
+
+    @Override
+    protected void init() {
+        setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.insets = new Insets(5, 15, 5, getWidth() * 2 / 3);
+        c.gridy = GridBagConstraints.RELATIVE;
+        c.anchor = GridBagConstraints.WEST;
+        c.weighty = 6;
+        add(welcomeMsg, c);
+        c.anchor = GridBagConstraints.NORTHWEST;
+        c.weighty = 1;
+        add(playBtn, c);
+        add(shopBtn, c);
+        add(statusBtn, c);
+        add(collectionBtn, c);
+        add(settingBtn, c);
+        add(exitBtn, c);
+        c.weighty = 4;
+        add(LogOutButton.getInstance(), c);
 
     }
 
-    private void setPlayListener(){
+    private void setPlayListener() {
         playBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,15 +90,16 @@ public class MenuPanel extends GamePanel {
         });
     }
 
-    private void setShopListener(){
+    private void setShopListener() {
         shopBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Administer.getInstance().runShop();
             }
-        });    }
+        });
+    }
 
-    private void setStatusListener(){
+    private void setStatusListener() {
         statusBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,7 +108,7 @@ public class MenuPanel extends GamePanel {
         });
     }
 
-    private void setCollectionListener(){
+    private void setCollectionListener() {
         collectionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -123,7 +117,7 @@ public class MenuPanel extends GamePanel {
         });
     }
 
-    private void setSettingListener(){
+    private void setSettingListener() {
         settingBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,7 +126,7 @@ public class MenuPanel extends GamePanel {
         });
     }
 
-    private void setExitListener(){
+    private void setExitListener() {
         exitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

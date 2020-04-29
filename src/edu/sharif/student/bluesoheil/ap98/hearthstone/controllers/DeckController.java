@@ -19,7 +19,7 @@ public class DeckController {
     }
 
     /*
-    ***** Getters and Setters
+     ***** Getters and Setters
      */
     public static DeckController getInstance() {
         if (instance == null) instance = new DeckController();
@@ -37,16 +37,16 @@ public class DeckController {
         String[] hunterCards = configs.getDefaultHunterDeckCards();
 
         ArrayList<Card> mageDeckCards = new ArrayList<>();
-        ArrayList<Card> warlockDeckCards= new ArrayList<>();
-        ArrayList<Card> rogueDeckCards= new ArrayList<>();
+        ArrayList<Card> warlockDeckCards = new ArrayList<>();
+        ArrayList<Card> rogueDeckCards = new ArrayList<>();
         ArrayList<Card> priestDeckCards = new ArrayList<>();
         ArrayList<Card> hunterDeckCards = new ArrayList<>();
 //todo howMany decks we need for signUp??
-        for (String cardName: mageCards ) mageDeckCards.add(CardController.getInstance().getCard(cardName));
-        for (String cardName: warlockCards ) warlockDeckCards.add(CardController.getInstance().getCard(cardName));
-        for (String cardName: rogueCards ) rogueDeckCards.add(CardController.getInstance().getCard(cardName));
-        for (String cardName: priestCards ) priestDeckCards.add(CardController.getInstance().getCard(cardName));
-        for (String cardName: hunterCards ) hunterDeckCards.add(CardController.getInstance().getCard(cardName));
+        for (String cardName : mageCards) mageDeckCards.add(CardController.getInstance().getCard(cardName));
+        for (String cardName : warlockCards) warlockDeckCards.add(CardController.getInstance().getCard(cardName));
+        for (String cardName : rogueCards) rogueDeckCards.add(CardController.getInstance().getCard(cardName));
+        for (String cardName : priestCards) priestDeckCards.add(CardController.getInstance().getCard(cardName));
+        for (String cardName : hunterCards) hunterDeckCards.add(CardController.getInstance().getCard(cardName));
 
         defaultDecks.add(new Deck("MageDefaultDeck", HeroTypes.MAGE, mageDeckCards));
         defaultDecks.add(new Deck("WarlockDefaultDeck", HeroTypes.WARLOCK, warlockDeckCards));
@@ -58,11 +58,14 @@ public class DeckController {
     }
 
     public ArrayList<Deck> getPlayerDecks() {
+        sortDecks();
         return playerDecks;
     }
+
     public Deck getCurrentDeck() {
         return currentDeck;
     }
+
     public void setCurrentDeck(Deck currentDeck) { //or do it with deckName given
         this.currentDeck = currentDeck;
     }
@@ -74,7 +77,7 @@ public class DeckController {
         playerDecks = PlayerController.getInstance().getPlayerDecks();
         //revalidate decks
         //we should revalidate our cards. current cards are different from the cards in the gameTotalCards and playerTotalCards
-        for (Deck deck : playerDecks){
+        for (Deck deck : playerDecks) {
             CardController.getInstance().revalidateCards(deck.getCards());
         }
     }
@@ -97,22 +100,37 @@ public class DeckController {
         return deck.getCards().contains(card);
     }
 
-    public void sortDecks(){
+    private void sortDecks() {
         //todo sortDecks
     }
 
-    public String[] getDeckDetails(String deckName){
-        return null;
+    public String[] getDeckStates(String deckName) {
+        Deck deck = getDeck(deckName);
+        String[] states = new String[]{deck.getName(), deck.getHero().toString(), Float.toString(deck.getWinRatio())
+                , Integer.toString(deck.getGamesPlayed()), Float.toString(deck.getManaAverage()), deck.getMostUsedCard()};
+        return states;
     }
 
-    public void createDeck(String name , HeroTypes hero) throws DeckControllerException {  //what should be the given cards? we can have default cards for each hero
-        if (playerDecks.size() < MAXIMUM_NUMBER_OF_DECKS){
-            playerDecks.add(new Deck(name,hero,  new ArrayList<>()));
-        }else  throw new DeckControllerException(" You can't hava more decks! ");
+    private Deck getDeck(String deckName) {
+        Deck DK = null;
+        for (Deck deck : playerDecks) {
+            if (deck.getName().equals(deckName)) {
+                DK = deck;
+                break;
+            }
+        }
+        return DK;
+    }
+
+
+    public void createDeck(String name, HeroTypes hero) throws DeckControllerException {  //what should be the given cards? we can have default cards for each hero
+        if (playerDecks.size() < MAXIMUM_NUMBER_OF_DECKS) {
+            playerDecks.add(new Deck(name, hero, new ArrayList<>()));
+        } else throw new DeckControllerException(" You can't hava more decks! ");
     }
 
     public void addCard(String nameOfDeck, Card card) throws DeckControllerException {
-        for(Deck deck : playerDecks){
+        for (Deck deck : playerDecks) {
             if (deck.getName().equals(nameOfDeck)) {
                 deck.addCard(card);
                 break;
@@ -121,13 +139,12 @@ public class DeckController {
     }
 
     public void removeCard(String nameOfDeck, Card card) throws DeckControllerException {
-        for(Deck deck : playerDecks){
+        for (Deck deck : playerDecks) {
             if (deck.getName().equals(nameOfDeck)) {
                 deck.removeCard(card);
                 break;
             }
         }
     }
-
 
 }

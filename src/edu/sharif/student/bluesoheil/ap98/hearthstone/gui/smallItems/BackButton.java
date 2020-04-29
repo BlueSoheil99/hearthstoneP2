@@ -2,6 +2,8 @@ package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +19,13 @@ public class BackButton extends JButton {
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Logger.log(LogTypes.CLICK_BUTTON, "button: BACK selected .");
                 Administer.getInstance().back();
             }
         });
     }
-    public static BackButton getInstance(){
+
+    public static BackButton getInstance() {
         if (instance == null) instance = new BackButton();
         return instance;
     }

@@ -1,6 +1,10 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.PlayerControllerException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.NavigationPanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,24 +24,45 @@ public class SettingPanel extends GamePanel {
 
     @Override
     protected void init() {
+        setBackground(new Color(168, 118, 94));
+        setBorder(BorderFactory.createMatteBorder(20, 5, 40, 5, new Color(0x562C1C)));
+
+        Font font = new Font("arial", Font.BOLD, 60);
         JLabel label = new JLabel("under construction !");
-        label.setFont(new Font("arial", Font.BOLD, 80));
-        setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridy=0;
-        c.gridx=0;
-        add(label , c);
-        c.gridy=1;
-        ImageIcon icon = new ImageIcon("src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/back.png");
-        JButton button = new JButton("", icon);
-        button.setBorderPainted(false);
-        button.setContentAreaFilled(false);        add(button,c);
-        button.addActionListener(new ActionListener() {
+        JLabel label2 = new JLabel("you can just delete your player if you want :) ");
+        label.setFont(font);
+        label2.setFont(font);
+        JButton deletePlayer = new JButton("Delete Player");
+        deletePlayer.setFont(font);
+        deletePlayer.setBackground(new Color(0xC0876B));
+        deletePlayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Administer.getInstance().back();
+                //todo visit https://stackoverflow.com/questions/8881213/joptionpane-to-get-password
+                Logger.log(LogTypes.CLICK_BUTTON , "button: DELETE PLAYER  selected.");
+                String ans = JOptionPane.showInputDialog(null, "Enter your password to Delete your profile.",
+                        "Confirm Delete", JOptionPane.WARNING_MESSAGE);
+                if (ans != null ) {
+                    try {
+                        Administer.getInstance().deletePlayer(ans);
+                    } catch (PlayerControllerException ex) {
+                        ex.printStackTrace();
+                        Logger.logError(LogTypes.PLAYER , ex);
+                    }
+                }
             }
         });
+        setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridy = 0;
+        c.gridx = 0;
+        c.gridy = GridBagConstraints.RELATIVE;
+        c.insets = new Insets(20,10,20,10);
+        add(label, c);
+        add(label2, c);
+        add(deletePlayer, c);
+        add(NavigationPanel.getInstance(), c);
+
     }
 
 }
