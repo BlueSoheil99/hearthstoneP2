@@ -48,6 +48,10 @@ public class CardController {
         return gameTotalCards;
     }
 
+    public HashMap<String, BufferedImage> getCardsAndImagesMap() {
+        return cardsAndImagesMap;
+    }
+
     public void setGameTotalCards(HashMap<String, Card> gameTotalCards) {
         this.gameTotalCards = gameTotalCards;
     }
@@ -191,4 +195,10 @@ public class CardController {
     }
 
 
+    public int getCardCost(String selectedCard) {
+        int cost = 0;
+        Card card = gameTotalCards.get(selectedCard.toUpperCase());
+        if (card != null) cost = card.getCost();
+        return cost;
+    }
 }

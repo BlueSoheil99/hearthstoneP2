@@ -1,6 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,7 +78,7 @@ public class FilterPanel extends JPanel {
 
     private void createFilterButton(){
         filterBtn = new JButton("");
-        filterBtn.setIcon(new ImageIcon("src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/filter.png"));
+        filterBtn.setIcon(new ImageIcon(GuiConstants.getInstance().getFilterIconPath()));
         filterBtn.setContentAreaFilled(false);
         filterBtn.setBorderPainted(false);
         setFilterListener();

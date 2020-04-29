@@ -92,11 +92,12 @@ public class Logger {
 
     }
 
+    //todo maybe you need to make a new method for gui exception errors
+
     public static void logError(LogTypes event , Exception exception){
         StringWriter sw = new StringWriter();
         exception.printStackTrace(new PrintWriter(sw));
         String exceptionAsString = sw.toString();
-//        log("ERROR: "+event , exceptionAsString);
         logger.printer.println("ERROR: "+event+ "\t"+
                 LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyy/MM/dd  HH:mm:ss"))+
                 "\t"+exceptionAsString);

@@ -1,6 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +11,7 @@ public class BackButton extends JButton {
     private static BackButton instance;
 
     private BackButton() {
-        super("", new ImageIcon("src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/back.png"));
+        super("", new ImageIcon(GuiConstants.getInstance().getBackIconPath()));
         setBorderPainted(false);
         setContentAreaFilled(false);
         addActionListener(new ActionListener() {

@@ -12,7 +12,6 @@ public class DeckPanel extends JPanel {
         setBorder(BorderFactory.createMatteBorder(20,5,40,5,new Color(0x562C1C)));
     }
 
-//    public DeckPanel
     private void addComponents() {
     }
 

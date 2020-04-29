@@ -19,7 +19,8 @@ public class CollectionPanel extends GamePanel {
     @Override
     protected void createFields() {
         filterPanel = new FilterPanel(getWidth()*2/9 , getHeight());
-        cardPanel = new CardPanel(getWidth()*5/9,getHeight());
+//        cardPanel = new CardPanel(getWidth()*5/9,getHeight());
+        cardPanel = new CardPanel();
         deckPanel = new DeckPanel(getWidth()*2/9 , getHeight());
     }
 

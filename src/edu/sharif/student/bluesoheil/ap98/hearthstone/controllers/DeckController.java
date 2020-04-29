@@ -97,6 +97,14 @@ public class DeckController {
         return deck.getCards().contains(card);
     }
 
+    public void sortDecks(){
+        //todo sortDecks
+    }
+
+    public String[] getDeckDetails(String deckName){
+        return null;
+    }
+
     public void createDeck(String name , HeroTypes hero) throws DeckControllerException {  //what should be the given cards? we can have default cards for each hero
         if (playerDecks.size() < MAXIMUM_NUMBER_OF_DECKS){
             playerDecks.add(new Deck(name,hero,  new ArrayList<>()));

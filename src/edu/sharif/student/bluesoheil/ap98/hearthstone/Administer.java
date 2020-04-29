@@ -1,6 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.*;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter.LoginPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter.SignUpPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Deck;
@@ -11,8 +12,10 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.*;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Administer {
     private MainFrame mainFrame;
@@ -108,8 +111,9 @@ public class Administer {
 
     public void runExit() {
         //todo save everything, ask for confirm,
-        Logger.log(LogTypes.PLAYER, "logged out");
-        Logger.closeLogfile();
+        playerController.logOut();
+//        Logger.log(LogTypes.PLAYER, "logged out");
+//        Logger.closeLogfile();
         System.exit(0); //or runLogin?
 
     }
@@ -159,12 +163,23 @@ public class Administer {
 
     }
 
-    public ArrayList<Card> filterCards() {
+    public ArrayList<CardShape> filterCards(int Mana) {
         // CardController.getInsatnce().filterWithSpecificProperties :)
         return null;
 
     }
+    public ArrayList<CardShape> filterCards() {
+        ArrayList<CardShape> cardShapes = new ArrayList<>();
+        for (Map.Entry<String , BufferedImage> entry : cardController.getCardsAndImagesMap().entrySet()){
+            cardShapes.add(new CardShape(entry.getKey() , entry.getValue()));
+        }
+        return cardShapes;
 
+    }
+
+    public int getPlayerCoins(){
+        return playerController.getPlayerCoins();
+    }
     public void buyCard(String cardName) throws CardControllerException {
         cardController.buyCard(cardName);
     }
@@ -187,4 +202,7 @@ public class Administer {
     }
 
 
+    public int getCardCost(String selectedCard) {
+        return cardController.getCardCost(selectedCard);
+    }
 }
