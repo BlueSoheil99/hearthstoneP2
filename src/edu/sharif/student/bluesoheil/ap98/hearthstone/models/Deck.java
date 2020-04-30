@@ -61,7 +61,7 @@ public class Deck {
                 cardName = entry.getKey();
             }
         }
-        //todo Complete this sorting .. take a look at status panel description
+        //todo Complete this sorting .. take a look at status panel description( phase 2 doc)
             return cardName;
     }
 

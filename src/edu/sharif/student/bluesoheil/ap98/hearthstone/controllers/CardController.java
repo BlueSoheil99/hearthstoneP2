@@ -194,7 +194,6 @@ public class CardController {
         }else throw new CardControllerException("card( "+cardName + " ) doesn't exist");
     }
 
-
     public int getCardCost(String selectedCard) {
         int cost = 0;
         Card card = gameTotalCards.get(selectedCard.toUpperCase());

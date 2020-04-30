@@ -1,12 +1,15 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.*;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.CollectionPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter.LoginPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter.SignUpPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.*;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Deck;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Heroes.HeroTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 
@@ -168,19 +171,27 @@ public class Administer {
 
     }
 
-    public ArrayList<CardShape> getCards(int Mana) {
+    public ArrayList<CardShape> getAllCards(boolean owned, HeroTypes hero, int Mana) {
         // CardController.getInsatnce().filterWithSpecificProperties :)
         return null;
+        /////////create a class as a connection btw panel and Logic
 
     }
 
-    public ArrayList<CardShape> getCards() {
+    public ArrayList<CardShape> getAllCards() {
         ArrayList<CardShape> cardShapes = new ArrayList<>();
         for (Map.Entry<String, BufferedImage> entry : cardController.getCardsAndImagesMap().entrySet()) {
-            cardShapes.add(new CardShape(entry.getKey(), entry.getValue()));
+            cardShapes.add(new CardShape(entry.getKey(), entry.getValue() , true));
         }
         return cardShapes;
 
+    }
+
+    public ArrayList<String> getDeckCards(String deckName){
+        ArrayList<Card> cards = deckController.getDeck(deckName).getCards();
+        ArrayList<String> cardNames = new ArrayList<>();
+        for (Card card : cards) cardNames.add(card.getName());
+        return cardNames;
     }
 
     public int getPlayerCoins() {

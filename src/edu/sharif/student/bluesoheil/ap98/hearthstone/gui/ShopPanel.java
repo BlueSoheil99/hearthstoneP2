@@ -6,7 +6,6 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.CardController
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.NavigationPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.SidePanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Log;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 
@@ -37,7 +36,7 @@ public class ShopPanel extends GamePanel {
     @Override
     protected void createFields() {
         cardPanel = new CardPanel();
-        cardPanel.setCards(Administer.getInstance().getCards());
+        cardPanel.setCards(Administer.getInstance().getAllCards());
         cardPanel.setClickListener(new ClickListener() {
             @Override
             public void select(String selectedCardName) {
@@ -153,8 +152,8 @@ public class ShopPanel extends GamePanel {
                             Administer.getInstance().sellCard(selectedCard);
                             JOptionPane.showMessageDialog(null, "You sold the card successfully");
                             Logger.log(LogTypes.SHOP , "card: "+selectedCard+" sold");
-                            revalidateController();
                             selectedCard = null;
+                            revalidateController();
 
                         } catch (CardControllerException ex) {
                             ex.printStackTrace();
@@ -188,9 +187,9 @@ public class ShopPanel extends GamePanel {
                         try {
                             Administer.getInstance().buyCard(selectedCard);
                             JOptionPane.showMessageDialog(null, "You bought the card successfully");
-                            revalidateController();
                             Logger.log(LogTypes.SHOP , "card: "+selectedCard+" purchased");
                             selectedCard = null;
+                            revalidateController();
 
                         } catch (CardControllerException ex) {
                             ex.printStackTrace();

@@ -63,6 +63,7 @@ public class StatusPanel extends GamePanel {
     private void createStatesComponents() {
         Font font1 = statesPanel.getFont1();
         Font font2 = statesPanel.getFont2();
+        //todo create statusLabel class with constructor StatusLabel(String msg , Font font)
         deckName = new JLabel("Deck Name: ");
         winRatio = new JLabel("Win Ratio: ");
         gamesPlayed = new JLabel("Games Played: ");
@@ -88,7 +89,6 @@ public class StatusPanel extends GamePanel {
         selectedManaAverage.setFont(font2);
         selectedHero.setFont(font2);
         selectedMostUsedCard.setFont(font2);
-//        revalidateDeckStates();
     }
 
     private void addStatesComponents() {
@@ -96,9 +96,9 @@ public class StatusPanel extends GamePanel {
         GridBagConstraints gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = new Insets(10,10,10,10);
+
         gc.weighty = 1;
         gc.weightx = 1;
-
         gc.gridx=0;
         gc.gridy = GridBagConstraints.RELATIVE;
         statesPanel.add(deckName, gc);
@@ -107,15 +107,13 @@ public class StatusPanel extends GamePanel {
         statesPanel.add(gamesPlayed, gc);
         statesPanel.add(manaAverage, gc);
         statesPanel.add(mostUsedCard, gc);
-
         gc.weighty = 4;
         gc.anchor = GridBagConstraints.SOUTHWEST;
         statesPanel.add(NavigationPanel.getInstance() , gc);
-        ///
+        ///////////// showing deck states ///////////////////
         gc.weighty = 1;
         gc.anchor = GridBagConstraints.LINE_START;
         gc.gridx=1;
-
         statesPanel.add(selectedDeckName, gc);
         statesPanel.add(selectedHero, gc);
         statesPanel.add(selectedWinRatio, gc);

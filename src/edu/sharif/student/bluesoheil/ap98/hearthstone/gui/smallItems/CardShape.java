@@ -3,6 +3,7 @@ package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -21,6 +22,16 @@ public class CardShape extends JButton {
         setIcon(icon);
         setOpaque(false);
         setContentAreaFilled(false);
+
+    }
+
+    public CardShape(String cardName, BufferedImage image, boolean owned) {
+      this(cardName , image);
+      if (!owned){
+          Border border = getBorder();
+          Border border1 = BorderFactory.createMatteBorder(5,10,10,5,Color.RED);
+          setBorder(BorderFactory.createCompoundBorder(border1 , border));
+      }
     }
 
     public String getCardName() {

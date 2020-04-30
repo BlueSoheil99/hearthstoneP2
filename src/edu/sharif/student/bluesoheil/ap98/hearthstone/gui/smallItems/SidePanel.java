@@ -15,9 +15,8 @@ public class SidePanel extends JPanel {
     }
 
     public SidePanel(int width, int height) {
+        this();
         setPreferredSize(new Dimension(width, height));
-        setBackground(new Color(168, 118, 94));
-    setBorder(BorderFactory.createMatteBorder(20, 5, 40, 5, new Color(0x562C1C)));
     }
 
     public Font getFont1() {

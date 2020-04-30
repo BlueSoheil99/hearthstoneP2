@@ -111,7 +111,7 @@ public class DeckController {
         return states;
     }
 
-    private Deck getDeck(String deckName) {
+    public Deck getDeck(String deckName) {
         Deck DK = null;
         for (Deck deck : playerDecks) {
             if (deck.getName().equals(deckName)) {
