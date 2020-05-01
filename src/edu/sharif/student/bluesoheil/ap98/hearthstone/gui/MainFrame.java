@@ -19,6 +19,7 @@ public class MainFrame extends JFrame {
         setMinimumSize(panel.getSize());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
+        revalidate();
         setLocationRelativeTo(null);
     }
 

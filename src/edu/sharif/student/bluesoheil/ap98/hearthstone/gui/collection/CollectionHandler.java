@@ -7,7 +7,7 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import java.util.ArrayList;
 
 public class CollectionHandler {
-    private static CollectionHandler instance;
+    private static CollectionHandler instance = new CollectionHandler();
     private CardFilter cardFilter;
 
     private CollectionHandler() {
@@ -15,7 +15,6 @@ public class CollectionHandler {
     }
 
     public static CollectionHandler getInstance() {
-        if (instance != null) instance = new CollectionHandler();
         return instance;
     }
 

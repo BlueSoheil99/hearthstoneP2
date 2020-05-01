@@ -7,7 +7,7 @@ public class GuiConstants extends GuiConfig {
     private static GuiConstants instance;
     private Configs properties;
     private int gameWidth, gameHeight, cardWidth, cardHeight;
-    private int numberOfCardsInRow;
+    private int numberOfCardsInRow , numberOfCardsInRow_collection;
     private String exitIconPath, backIconPath, filterIconPath, coinsIconPath , logOutPath;
 
     private GuiConstants() {

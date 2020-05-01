@@ -53,6 +53,7 @@ public class CardFilter {
             this.hero = null;
         } else this.hero = heroes.get(hero);
 
+        filteredCards = new ArrayList<>();
         for (Map.Entry<String, Card> cardEntry : totalGameCards.entrySet()) {
             filteredCards.add(cardEntry.getValue());
         }
@@ -63,10 +64,12 @@ public class CardFilter {
         filterCardsWithHero();
 
         if (owned){
-            for (Card card : getOwnedFilterCards()) finalFilteredCards.add(getShapeCard(card , true));
+            ArrayList<Card> ownedCards = getOwnedFilterCards();
+            for (Card card : ownedCards) finalFilteredCards.add(getShapeCard(card , true));
         }
         if (notOwned){
-            for (Card card : getNotOwnedFilterCards()) finalFilteredCards.add(getShapeCard(card , false));
+            ArrayList<Card> notOwnedCards = getNotOwnedFilterCards();
+            for (Card card : notOwnedCards) finalFilteredCards.add(getShapeCard(card , false));
         }
         return finalFilteredCards;
     }
@@ -81,17 +84,14 @@ public class CardFilter {
 
     private void filterCardsWithMana() {
         if (manaCost != -1) {
-            for (Card card : filteredCards) {
-                if (card.getManaCost() != manaCost) filteredCards.remove(card);
-            }
+            // java offers to use removeIf to avoid ConcurrentModificationException
+            filteredCards.removeIf(card -> card.getManaCost() != manaCost);
         }
     }
 
     private void filterCardsWithHero() {
         if (hero != null) {
-            for (Card card : filteredCards) {
-                if (card.getHeroClass() != hero) filteredCards.remove(card);
-            }
+            filteredCards.removeIf(card -> card.getHeroClass() != hero);
         }
     }
 

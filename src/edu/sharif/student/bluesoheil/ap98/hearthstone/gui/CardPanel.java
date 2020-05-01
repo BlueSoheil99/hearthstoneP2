@@ -16,52 +16,63 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class CardPanel  extends SidePanel implements ActionListener {
+public class CardPanel extends SidePanel implements ActionListener {
 
     private ArrayList<CardShape> cards;
     private CardShape selectedCard;
     private ClickListener clickListener;
 
-    public CardPanel (){
+    public CardPanel() {
         super();
     }
 
-    void setCards(ArrayList<CardShape> cardShapes){
+    void setCards(ArrayList<CardShape> cardShapes, int cardsInRow) {
         cards = cardShapes;
-        paintCardsInPanel();
+        paintCardsInPanel(cardsInRow);
         for (CardShape cardShape : cards) cardShape.addActionListener(this);
+    }
+    void setCards(ArrayList<CardShape> cardShapes) {
+//        cards = cardShapes;
+//        paintCardsInPanel(GuiConstants.getInstance().getNumberOfCardsInRow());
+//        for (CardShape cardShape : cards) cardShape.addActionListener(this);
+        setCards(cardShapes , GuiConstants.getInstance().getNumberOfCardsInRow());
 
     }
 
-    void paintCardsInPanel(){
-        int numberOfCardsInRow = GuiConstants.getInstance().getNumberOfCardsInRow();
+    private void paintCardsInPanel(int numberOfCardsInRow) {
+        removeAll();
+        revalidate();
+        repaint();
+//        int numberOfCardsInRow = GuiConstants.getInstance().getNumberOfCardsInRow();
+//        int numberOfCardsInRow = getWidth() / CardShape.getCardWidth() - 1;
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-        gc.gridy=0;
-        gc.gridx=0;
-        int x =0;
+        gc.gridy = 0;
+        gc.gridx = 0;
+        int x = 0;
         for (CardShape cardShape : cards) {
             if (x > numberOfCardsInRow - 1) {
                 x = 0;
                 gc.gridy++;
-                gc.gridx =0;
+                gc.gridx = 0;
             }
             add(cardShape, gc);
             x++;
             gc.gridx = x;
         }
+//        revalidate();
     }
 
-    public void setClickListener(ClickListener listener){
+    public void setClickListener(ClickListener listener) {
         this.clickListener = listener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        selectedCard = (CardShape)e.getSource();
-        if (clickListener != null){
+        selectedCard = (CardShape) e.getSource();
+        if (clickListener != null) {
             clickListener.select(selectedCard.getCardName());
         }
-        Logger.log(LogTypes.CLICK_BUTTON , "card: "+selectedCard.getCardName()+"  selected.");
+        Logger.log(LogTypes.CLICK_BUTTON, "card: " + selectedCard.getCardName() + "  selected.");
     }
 }

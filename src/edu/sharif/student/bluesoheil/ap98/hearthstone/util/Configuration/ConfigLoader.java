@@ -17,6 +17,7 @@ public class ConfigLoader {
     private Configs frameConfigs;
     private Configs panelConfigs;
     private Configs startPanelConfigs;
+    private Configs collectionConfigs;
     private Configs cardConfigs;
     private Configs menuConfigs;
     private Configs guiConstants;
@@ -81,41 +82,40 @@ public class ConfigLoader {
                 } else if (lowerCase.contains("card")) {
                     cardConfigs = property;
 
-                }else if (lowerCase.contains("menu")){
+                } else if (lowerCase.contains("menu")) {
                     menuConfigs = property;
 
-                }else if (lowerCase.contains("panel")) {
+                } else if (lowerCase.contains("panel")) {
                     panelConfigs = property;
-                }else if (lowerCase.contains("guiconstants")) {
+
+                } else if (lowerCase.contains("guiconstants")) {
                     guiConstants = property;
 
-                }else if (lowerCase.contains("constants")) {
+                } else if (lowerCase.contains("collection")) {
+                    collectionConfigs = property;
+
+                } else if (lowerCase.contains("constants")) {
                     constants = property;
 
                 } else
-                    properties = property ;
+                    properties = property;
 
 
             }
         }
-//        System.out.println("loading finished! ");
     }
 
     // due to subPackages, we couldn't have protected methods here
 
-    public String getAddress( String resource_url) {
-//        return addressess.get(type).getProperty(resource_url);
+    public String getAddress(String resource_url) {
         return addresses.getProperty(resource_url);
     }
 
     public Configs getConstantsProperties() {
-//        System.out.println("in get properties with name : " + name);
-//        return constants.get(name);
         return constants;
     }
 
     public Configs getFrameProperties() {
-//        return frameConfigs.get(name);
         return frameConfigs;
     }
 
@@ -127,15 +127,19 @@ public class ConfigLoader {
         return startPanelConfigs;
     }
 
-    public Configs getCardProperties(){
+    public Configs getCardProperties() {
         return cardConfigs;
     }
 
-    public Configs getMenuProperties(){
+    public Configs getMenuProperties() {
         return menuConfigs;
     }
 
-    public Configs getGuiConstantsProperties(){
+    public Configs getGuiConstantsProperties() {
         return guiConstants;
+    }
+
+    public Configs getCollectionProperties() {
+        return collectionConfigs;
     }
 }

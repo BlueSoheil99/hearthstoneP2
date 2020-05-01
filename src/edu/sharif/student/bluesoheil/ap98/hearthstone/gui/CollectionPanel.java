@@ -10,12 +10,16 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.DeckPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection.FilterEvent;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection.FilterPanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.CollectionConfig;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 
 public class CollectionPanel extends GamePanel {
+    private CollectionConfig properties;
     private FilterPanel filterPanel;
     private CardPanel cardPanel;
     private DeckPanel deckPanel;
@@ -23,20 +27,21 @@ public class CollectionPanel extends GamePanel {
 
     public CollectionPanel() {
         super();
-        collectionHandler = CollectionHandler.getInstance();
     }
 
     @Override
     protected void loadConfig() {
-
+        properties = CollectionConfig.getInstance();
     }
 
     @Override
     protected void createFields() {
-        filterPanel = new FilterPanel(getWidth() * 2 / 9, getHeight());
-        deckPanel = new DeckPanel(getWidth() * 2 / 9, getHeight());
+        collectionHandler = CollectionHandler.getInstance();
+        filterPanel = new FilterPanel(properties.getFilterWidth(), getHeight());
+        deckPanel = new DeckPanel(properties.getDeckWidth(), getHeight());
         cardPanel = new CardPanel();
-//        cardPanel.setCards( collectionHandler.filterCards());
+        cardPanel.setCards( collectionHandler.filterCards("" , true , true , -1 , "All")
+                ,  properties.getNumberOfCardsInRow());
         addListenersToPanels();
     }
 
@@ -44,8 +49,11 @@ public class CollectionPanel extends GamePanel {
     protected void init() {
         setLayout(new BorderLayout());
         add(filterPanel, BorderLayout.WEST);
-        add(cardPanel, BorderLayout.CENTER);
+        add(new JScrollPane(cardPanel), BorderLayout.CENTER);
         add(deckPanel, BorderLayout.EAST);
+////        revalidate();
+//        cardPanel.setCards( collectionHandler.filterCards("" , true , true , -1 , "All"));
+
     }
 
     private void addListenersToPanels() {
@@ -62,7 +70,7 @@ public class CollectionPanel extends GamePanel {
             public void filter(FilterEvent filter) {
                 ArrayList<CardShape> cards = collectionHandler.filterCards(filter.getRegex(), filter.isOwned(),
                         filter.isNotOwned() , filter.getManaCost() , filter.getHero());
-                cardPanel.setCards(cards);
+                cardPanel.setCards(cards , properties.getNumberOfCardsInRow());
             }
         });
 
