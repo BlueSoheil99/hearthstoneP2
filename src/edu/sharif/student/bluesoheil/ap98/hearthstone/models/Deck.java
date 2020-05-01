@@ -22,9 +22,6 @@ public class Deck {
     private HashMap<String,Integer> cardsUsage;
 
 
-//    todo we can have a default set of cards for each hero with 5 cards
-
-
     public Deck(String name,HeroTypes hero, ArrayList<Card> cards) {
             this.name = name;
             this.hero = hero;
@@ -36,12 +33,23 @@ public class Deck {
     }
 
     ////getters and setters
+    public static int getMinimumCardsInDeck (){
+        return MINIMUM_NUMBER_OF_CARDS;
+    }
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public HeroTypes getHero() {
         return hero;
+    }
+
+    public void setHero(HeroTypes hero) {
+        this.hero = hero;
     }
 
     public ArrayList<Card> getCards() {
@@ -99,7 +107,6 @@ public class Deck {
                 cardsUsage.put(card.getName(), 0);
             }else throw new DeckControllerException("this card is not valid for this hero");
         }else throw new DeckControllerException("You can't have more than "+MAXIMUM_NUMBER_OF_CARDS+" cards in a deck");
-
     }
 
     public void removeCard(Card card) throws DeckControllerException{

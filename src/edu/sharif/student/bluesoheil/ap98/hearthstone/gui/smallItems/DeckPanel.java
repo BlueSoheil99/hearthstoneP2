@@ -36,17 +36,19 @@ public class DeckPanel extends SidePanel implements ActionListener {
     }
 
     private void paintDecksInPanel() {
+        //todo this is not working properly with decks more...it's because its height is set on 1080 and so it doesn't resize right
         setEmpty();
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(5, 0, 5, 0);
-        gc.anchor = GridBagConstraints.PAGE_START;
+        gc.anchor = GridBagConstraints.CENTER;
         gc.gridy = 0;
-        gc.fill = GridBagConstraints.BOTH;
+        gc.fill = GridBagConstraints.HORIZONTAL;
         for (DeckShape deckShape : decks) {
             add(deckShape, gc);
             gc.gridy++;
         }
+        repaint();
 
     }
 

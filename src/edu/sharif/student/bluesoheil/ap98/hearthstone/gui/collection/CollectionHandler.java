@@ -2,6 +2,7 @@ package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.CardFilter;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.DeckControllerException;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Heroes.HeroTypes;
 
@@ -41,26 +42,32 @@ public class CollectionHandler {
         return administer.getPlayerDecks();
     }
 
-    public void renameDeck(String selectedDeck, String newName) {
-//        administer.renameDeck
+    public void createNewDeck(String newDeckName , String heroName) throws DeckControllerException {
+        administer.createDeck(newDeckName , heroName);
+    }
+
+    public void renameDeck(String selectedDeck, String newName) throws DeckControllerException {
+        administer.renameDeck( selectedDeck, newName);
     }
 
     public void deleteDeck(String selectedDeck) {
+        administer.deleteDeck(selectedDeck);
     }
 
-    public void removeCardFromDeck(String selectedDeck, String selectedCard) {
+    public void addCardToDeck(String selectedDeck , String selectedCard) throws DeckControllerException {
+        administer.addCardToDeck(selectedDeck , selectedCard );
     }
 
-    public void setCurrentDeck(String selectedDeck) {
+    public void removeCardFromDeck(String selectedDeck, String selectedCard) throws DeckControllerException {
+        administer.removeCardFromDeck(selectedDeck , selectedCard);
     }
 
-    public void addCardToDeck(String selectedDeck , String selectedCard) {
+    public void setCurrentDeck(String selectedDeck) throws DeckControllerException {
+        administer.setCurrentDeck(selectedDeck);
     }
 
-    public void changeDeckHero(String selectedDeck, HeroTypes heroName) {
-    }
-
-    public void createNewDeck(String newDeckName , String heroName) {
+    public void changeDeckHero(String selectedDeck, HeroTypes heroName) throws DeckControllerException {
+        administer.changeDeckHero(selectedDeck , heroName);
     }
 
     public boolean playerHas(String selectedCard) {

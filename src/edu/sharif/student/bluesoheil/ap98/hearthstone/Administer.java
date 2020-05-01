@@ -12,6 +12,7 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
@@ -73,14 +74,17 @@ public class Administer {
 
     public void runPlay() {
         if (DeckController.getInstance().getCurrentDeck() == null) {
-            //when current deck is not selected
+            JOptionPane.showMessageDialog(null , "CurrentDeck is not set.\nChoose one deck as your Current one...",
+                    "current deck is not available" , JOptionPane.ERROR_MESSAGE);
+            runCollection();
+        }else{
+            //todo think about that where shall we put passives, here or in playPanel
+            GameController game = new GameController();
+            PlayPanel playPanel = new PlayPanel();
+            recentPanels.add(playPanel);
+            Logger.log(LogTypes.NAVIGATION, "To Play");
+            mainFrame.initFrame(playPanel);
         }
-        //todo think about that where shall we put passives, here or in playPanel
-        GameController game = new GameController();
-        PlayPanel playPanel = new PlayPanel();
-        recentPanels.add(playPanel);
-        Logger.log(LogTypes.NAVIGATION, "To Play");
-        mainFrame.initFrame(playPanel);
     }
 
     public void runShop() {
@@ -124,7 +128,7 @@ public class Administer {
     public void back() {
         Logger.log(LogTypes.NAVIGATION, "Back to previous panel");
         GamePanel lastPanel = getPreviousPanel();
-        if (lastPanel.getClass()==CollectionPanel.class) lastPanel=new CollectionPanel();
+        if (lastPanel.getClass() == CollectionPanel.class) lastPanel = new CollectionPanel();
         //todo this is because when we get back to collection in shop, navigation panel disappears!/ find the reason and fix that instead of lines like line above
         mainFrame.initFrame(lastPanel);
     }
@@ -145,7 +149,7 @@ public class Administer {
 
     public void deletePlayer(String password) throws PlayerControllerException {
         playerController.deletePlayer(password);
-        JOptionPane.showMessageDialog(null , "You deleted your profile successfully");
+        JOptionPane.showMessageDialog(null, "You deleted your profile successfully");
         System.exit(0);
     }
 
@@ -178,12 +182,12 @@ public class Administer {
     public ArrayList<CardShape> getAllCards() {
         ArrayList<CardShape> cardShapes = new ArrayList<>();
         for (Map.Entry<String, BufferedImage> entry : cardController.getCardsAndImagesMap().entrySet()) {
-            cardShapes.add(new CardShape(entry.getKey(), entry.getValue() , true));
+            cardShapes.add(new CardShape(entry.getKey(), entry.getValue(), true));
         }
         return cardShapes;
     }
 
-    public ArrayList<String> getDeckCards(String deckName){
+    public ArrayList<String> getDeckCards(String deckName) {
         ArrayList<Card> cards = deckController.getDeck(deckName).getCards();
         ArrayList<String> cardNames = new ArrayList<>();
         for (Card card : cards) cardNames.add(card.getName().toUpperCase());
@@ -206,10 +210,6 @@ public class Administer {
         cardController.sellCard(cardName);
     }
 
-    public void createDeck(String deckName) {
-
-    }
-
     public HashMap<String, String> getPlayerDecks() {
         // returns all decks of player
         return getPlayerDecks(deckController.getPlayerDecks().size());
@@ -230,4 +230,52 @@ public class Administer {
         return deckController.getDeckStates(deckName);
     }
 
+    public void createDeck(String deckName, String hero) throws DeckControllerException {
+        HeroTypes heroType;
+        switch (hero.toUpperCase()) {
+            case ("MAGE"):
+                deckController.createDeck(deckName, HeroTypes.MAGE);
+                break;
+            case ("WARLOCK"):
+                deckController.createDeck(deckName, HeroTypes.WARLOCK);
+                break;
+            case ("ROGUE"):
+                deckController.createDeck(deckName, HeroTypes.ROGUE);
+                break;
+            case ("HUNTER"):
+                deckController.createDeck(deckName, HeroTypes.HUNTER);
+                break;
+            case ("PRIEST"):
+                deckController.createDeck(deckName, HeroTypes.PRIEST);
+                break;
+            default:
+                throw new DeckControllerException("You Entered a wrong Hero");
+        }
+    }
+
+    public void addCardToDeck(String selectedDeck, String selectedCard) throws DeckControllerException {
+        Card card = cardController.getCard(selectedCard);
+        deckController.addCard(selectedDeck  , card);
+    }
+
+    public void removeCardFromDeck(String selectedDeck, String selectedCard) throws DeckControllerException {
+        Card card = cardController.getCard(selectedCard);
+        deckController.removeCard(selectedDeck  , card);
+    }
+
+    public void renameDeck(String selectedDeck, String newName) throws DeckControllerException {
+        deckController.renameDeck(selectedDeck , newName);
+    }
+
+    public void deleteDeck(String selectedDeck) {
+        deckController.deleteDeck(selectedDeck);
+    }
+
+    public void setCurrentDeck(String selectedDeck) throws DeckControllerException {
+        deckController.setCurrentDeck(selectedDeck);
+    }
+
+    public void changeDeckHero(String selectedDeck, HeroTypes heroName) throws DeckControllerException {
+        deckController.changeDeckHero(selectedDeck , heroName);
+    }
 }

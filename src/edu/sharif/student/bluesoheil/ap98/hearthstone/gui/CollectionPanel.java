@@ -59,8 +59,9 @@ public class CollectionPanel extends GamePanel {
         add(new JScrollPane(cardPanel), BorderLayout.CENTER);
         add(new JScrollPane(deckCardsPanel), BorderLayout.SOUTH);
         add(filterPanel, BorderLayout.WEST);
-        add(deckPanel, BorderLayout.EAST);
-//        add(new JScrollPane(deckPanel), BorderLayout.EAST);
+        add(new JScrollPane(deckPanel), BorderLayout.EAST);
+        //todo code above work fine but ugly after canceling a deck...but the code below works wrong (in more than 7 decks) but beautiful !
+//        add(deckPanel, BorderLayout.EAST);
 
     }
 
@@ -120,6 +121,7 @@ public class CollectionPanel extends GamePanel {
                     collectionHandler.renameDeck(selectedDeck, newName);
                     JOptionPane.showMessageDialog(null, selectedDeck + " has been renamed to " + newName
                             , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    Logger.log(LogTypes.COLLECTION ,selectedDeck + " has been renamed to " + newName);
                     revalidateSelections();
                 } catch (Exception e) {
                     handleException(e);
@@ -132,6 +134,7 @@ public class CollectionPanel extends GamePanel {
                     collectionHandler.deleteDeck(selectedDeck);
                     JOptionPane.showMessageDialog(null, selectedDeck + " has been deleted from player's decks"
                             , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    Logger.log(LogTypes.COLLECTION ,selectedDeck + " has been deleted from player's decks");
                     revalidateSelections();
                 } catch (Exception e) {
                     handleException(e);
@@ -144,6 +147,7 @@ public class CollectionPanel extends GamePanel {
                     collectionHandler.removeCardFromDeck(selectedDeck, selectedCard);
                     JOptionPane.showMessageDialog(null, selectedCard + " has been removed from " + selectedDeck
                             , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    Logger.log(LogTypes.COLLECTION ,selectedCard + " has been removed from " + selectedDeck);
                     revalidateSelections();
                 } catch (Exception e) {
                     handleException(e);
@@ -157,6 +161,7 @@ public class CollectionPanel extends GamePanel {
                         collectionHandler.addCardToDeck(selectedDeck, selectedCard);
                         JOptionPane.showMessageDialog(null, selectedCard + " has been added to " + selectedDeck
                                 , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                        Logger.log(LogTypes.COLLECTION ,selectedCard + " has been added to " + selectedDeck);
                         revalidateSelections();
                     } catch (Exception e) {
                         handleException(e);
@@ -179,6 +184,8 @@ public class CollectionPanel extends GamePanel {
                     collectionHandler.setCurrentDeck(selectedDeck);
                     JOptionPane.showMessageDialog(null, selectedDeck + " has been set as current deck"
                             , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    Logger.log(LogTypes.COLLECTION ,selectedDeck + " has been set as current deck");
+                    //todo make a way to show current deck like changing backGround to gold
                     revalidateSelections();
                 } catch (Exception e) {
                     handleException(e);
@@ -191,6 +198,8 @@ public class CollectionPanel extends GamePanel {
                     collectionHandler.changeDeckHero(selectedDeck, heroName);
                     JOptionPane.showMessageDialog(null, selectedDeck + "'s hero has been changed to " + heroName.toString()
                             , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    Logger.log(LogTypes.COLLECTION ,selectedDeck + "'s hero has been changed to " + heroName.toString());
+
                     revalidateSelections();
                 } catch (Exception e) {
                     handleException(e);
@@ -203,6 +212,7 @@ public class CollectionPanel extends GamePanel {
                     collectionHandler.createNewDeck(newDeckName, newDeckHero);
                     JOptionPane.showMessageDialog(null, newDeckName + " is now available with " + newDeckHero
                             , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    Logger.log(LogTypes.COLLECTION ,newDeckName + " is now available with " + newDeckHero);
                     revalidateSelections();
                 } catch (Exception e) {
                     handleException(e);

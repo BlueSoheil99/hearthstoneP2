@@ -41,7 +41,7 @@ public class DeckController {
         ArrayList<Card> rogueDeckCards = new ArrayList<>();
         ArrayList<Card> priestDeckCards = new ArrayList<>();
         ArrayList<Card> hunterDeckCards = new ArrayList<>();
-//todo howMany decks we need for signUp??
+        //todo howMany decks we need for signUp??
         for (String cardName : mageCards) mageDeckCards.add(CardController.getInstance().getCard(cardName));
         for (String cardName : warlockCards) warlockDeckCards.add(CardController.getInstance().getCard(cardName));
         for (String cardName : rogueCards) rogueDeckCards.add(CardController.getInstance().getCard(cardName));
@@ -66,8 +66,10 @@ public class DeckController {
         return currentDeck;
     }
 
-    public void setCurrentDeck(Deck currentDeck) { //or do it with deckName given
-        this.currentDeck = currentDeck;
+    public void setCurrentDeck(String currentDeck) throws DeckControllerException {
+        if (Deck.getMinimumCardsInDeck() <= getDeck(currentDeck).getNumberOfCards()) {
+            this.currentDeck = getDeck(currentDeck);
+        }else throw new DeckControllerException("You should atLeast have " + Deck.getMinimumCardsInDeck() + "cards in currentDeck");
     }
 
     /*
@@ -122,11 +124,17 @@ public class DeckController {
         return DK;
     }
 
+    public void renameDeck(String deckName, String newDeckName) throws DeckControllerException {
+        Deck deck = getDeck(deckName);
+        if (isNameAvailable(newDeckName)) {
+            deck.setName(newDeckName);
+        } else throw new DeckControllerException("this name is not valid");
+    }
 
     public void createDeck(String name, HeroTypes hero) throws DeckControllerException {  //what should be the given cards? we can have default cards for each hero
         if (playerDecks.size() < MAXIMUM_NUMBER_OF_DECKS) {
             playerDecks.add(new Deck(name, hero, new ArrayList<>()));
-        } else throw new DeckControllerException(" You can't hava more decks! ");
+        } else throw new DeckControllerException(" You can't have more decks! ");
     }
 
     public void addCard(String nameOfDeck, Card card) throws DeckControllerException {
@@ -147,4 +155,36 @@ public class DeckController {
         }
     }
 
+    private boolean isNameAvailable(String requestedName) {
+        boolean ans = true;
+        if (requestedName.length() > 4) {
+            for (Deck deck : playerDecks) {
+                if (requestedName.toUpperCase().equals(deck.getName().toUpperCase())) {
+                    ans = false;
+                    break;
+                }
+            }
+        } else ans = false;
+        return ans;
+    }
+
+    public void deleteDeck(String selectedDeck) {
+        playerDecks.remove(getDeck(selectedDeck));
+    }
+
+    public void changeDeckHero(String selectedDeck, HeroTypes heroName) throws DeckControllerException {
+        Deck deck = getDeck(selectedDeck);
+        boolean isThisOperationAvailable = true;
+        for (Card card : deck.getCards()) {
+            if (card.getHeroClass() != Card.HeroClass.NEUTRAL && card.getHeroClass().toString() != heroName.toString()) {
+                isThisOperationAvailable = false;
+                break;
+            }
+        }
+        if (isThisOperationAvailable) {
+            deck.setHero(heroName);
+        } else {
+            throw new DeckControllerException("You Can't change Hero According to cards in this deck");
+        }
+    }
 }

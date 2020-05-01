@@ -6,3 +6,8 @@
  
  4 . چون گفتین دکمه خروج از بازی همه جا باید باشه اون دوتا دکمه ی برگشت و خروج رو همه جا گذاشتم وگرنه بنظر بهتر بود که با دکمه‌ی (ESC)برگشت میزدیم و توی منو هم با این دکمه خارج میشدیم.
  
+ 5 . https://www.programcreek.com/java-api-examples/?class=java.awt.image.BufferedImage&method=copyData
+ 
+ 6 . https://www.dyclassroom.com/image-processing-project/how-to-convert-a-color-image-into-grayscale-image-in-java
+ 
+ 7 . http://www.hearthcards.net/
