@@ -5,6 +5,7 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,8 @@ public class DeckPanel extends SidePanel implements ActionListener {
 
     private ClickListener listener;
     private ArrayList<DeckShape> decks;
+    private Border lastBorder;
+    private DeckShape selectedDeck;
 
     public DeckPanel(int width, int height) {
         super(width, height);
@@ -33,9 +36,11 @@ public class DeckPanel extends SidePanel implements ActionListener {
     }
 
     private void paintDecksInPanel() {
+        setEmpty();
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-        gc.insets = new Insets(5, 2, 5, 2);
+        gc.insets = new Insets(5, 0, 5, 0);
+        gc.anchor = GridBagConstraints.PAGE_START;
         gc.gridy = 0;
         gc.fill = GridBagConstraints.BOTH;
         for (DeckShape deckShape : decks) {
@@ -45,6 +50,16 @@ public class DeckPanel extends SidePanel implements ActionListener {
 
     }
 
+    private void setEmpty(){
+        removeAll();
+        revalidate();
+        repaint();
+    }
+
+    public void unselectDeck(){
+        if (lastBorder!=null)selectedDeck.setBorder(lastBorder);
+    }
+
     public void setClickListener(ClickListener listener) {
         this.listener = listener;
     }
@@ -52,9 +67,14 @@ public class DeckPanel extends SidePanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (listener != null) {
-            DeckShape selectedDeck = (DeckShape) e.getSource();
+            unselectDeck();
+            selectedDeck = (DeckShape) e.getSource();
+            lastBorder = selectedDeck.getBorder();
+            selectedDeck.setBorder(
+                    BorderFactory.createMatteBorder(4,4,4,4,new Color(16, 90, 115)));
             listener.select(selectedDeck.getDeckName());
             Logger.log(LogTypes.CLICK_BUTTON, "deck:  " + selectedDeck.getDeckName() + "  selected .");
         }
     }
+
 }

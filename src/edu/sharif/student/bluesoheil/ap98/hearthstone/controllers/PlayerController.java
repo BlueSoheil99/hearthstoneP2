@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Deck;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.Constants;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Log;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;

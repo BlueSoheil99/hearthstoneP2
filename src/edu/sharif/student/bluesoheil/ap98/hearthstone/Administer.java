@@ -171,26 +171,18 @@ public class Administer {
 
     }
 
-    public ArrayList<CardShape> getAllCards(boolean owned, HeroTypes hero, int Mana) {
-        // CardController.getInsatnce().filterWithSpecificProperties :)
-        return null;
-        /////////create a class as a connection btw panel and Logic
-
-    }
-
     public ArrayList<CardShape> getAllCards() {
         ArrayList<CardShape> cardShapes = new ArrayList<>();
         for (Map.Entry<String, BufferedImage> entry : cardController.getCardsAndImagesMap().entrySet()) {
             cardShapes.add(new CardShape(entry.getKey(), entry.getValue() , true));
         }
         return cardShapes;
-
     }
 
     public ArrayList<String> getDeckCards(String deckName){
         ArrayList<Card> cards = deckController.getDeck(deckName).getCards();
         ArrayList<String> cardNames = new ArrayList<>();
-        for (Card card : cards) cardNames.add(card.getName());
+        for (Card card : cards) cardNames.add(card.getName().toUpperCase());
         return cardNames;
     }
 
@@ -214,6 +206,11 @@ public class Administer {
 
     }
 
+    public HashMap<String, String> getPlayerDecks() {
+        // returns all decks of player
+        return getPlayerDecks(deckController.getPlayerDecks().size());
+    }
+
     public HashMap<String, String> getPlayerDecks(int numberOfDecks) {
         HashMap<String, String> decksInfo = new HashMap<>();
         int x = 0;
@@ -228,4 +225,5 @@ public class Administer {
     public String[] getDeckState(String deckName) {
         return deckController.getDeckStates(deckName);
     }
+
 }

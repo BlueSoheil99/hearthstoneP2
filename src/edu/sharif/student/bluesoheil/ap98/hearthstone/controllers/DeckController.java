@@ -51,7 +51,7 @@ public class DeckController {
         defaultDecks.add(new Deck("MageDefaultDeck", HeroTypes.MAGE, mageDeckCards));
         defaultDecks.add(new Deck("WarlockDefaultDeck", HeroTypes.WARLOCK, warlockDeckCards));
         defaultDecks.add(new Deck("RogueDefaultDeck", HeroTypes.ROGUE, rogueDeckCards));
-        defaultDecks.add(new Deck("PriesDefaultDeck", HeroTypes.PRIEST, priestDeckCards));
+        defaultDecks.add(new Deck("PriestDefaultDeck", HeroTypes.PRIEST, priestDeckCards));
         defaultDecks.add(new Deck("HunterDefaultDeck", HeroTypes.HUNTER, hunterDeckCards));
 
         return defaultDecks;
