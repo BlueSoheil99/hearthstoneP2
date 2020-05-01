@@ -62,4 +62,8 @@ public class CollectionHandler {
 
     public void createNewDeck(String newDeckName , String heroName) {
     }
+
+    public boolean playerHas(String selectedCard) {
+        return cardFilter.playerCardsContain(selectedCard);
+    }
 }

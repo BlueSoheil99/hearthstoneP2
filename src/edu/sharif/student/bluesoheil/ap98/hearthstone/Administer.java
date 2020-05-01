@@ -22,7 +22,7 @@ import java.util.Map;
 public class Administer {
     private MainFrame mainFrame;
     private static Administer administer;
-    private ArrayList<JPanel> recentPanels;
+    private ArrayList<GamePanel> recentPanels;
     private PlayerController playerController;
     private CardController cardController;
     private DeckController deckController;
@@ -123,14 +123,18 @@ public class Administer {
 
     public void back() {
         Logger.log(LogTypes.NAVIGATION, "Back to previous panel");
-        mainFrame.initFrame(getPreviousPanel());
+        GamePanel lastPanel = getPreviousPanel();
+        if (lastPanel.getClass()==CollectionPanel.class) lastPanel=new CollectionPanel();
+        //todo this is because when we get back to collection in shop, navigation panel disappears!/ find the reason and fix that instead of lines like line above
+        mainFrame.initFrame(lastPanel);
     }
 
-    public JPanel getPreviousPanel() {
-        JPanel previousPanel = null;
+    public GamePanel getPreviousPanel() {
+        GamePanel previousPanel = null;
         recentPanels.remove(recentPanels.size() - 1); //i don't know how to explain! it's like closing the last panel...
         // ... if we don't do this we will have logical errors.
         previousPanel = recentPanels.get(recentPanels.size() - 1);
+        previousPanel.repaint();
         return previousPanel;
     }
 

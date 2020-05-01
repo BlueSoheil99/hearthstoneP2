@@ -1,5 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
+import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.ClickListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.DeckHandlerListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.FilterListener;
@@ -88,7 +89,7 @@ public class CollectionPanel extends GamePanel {
             @Override
             public void select(String objName) {
                 selectedDeck = objName;
-                selectedCard=null;
+                selectedCard = null;
                 cardPanel.unselectCard();
                 filterPanel.setDeckHandlerEditable(true);
                 deckCardsPanel.setCards(collectionHandler.getDeckCards(selectedDeck), 20);
@@ -106,8 +107,8 @@ public class CollectionPanel extends GamePanel {
 
                 cardPanel.setCards(cards, properties.getNumberOfCardsInRow());
                 Logger.log(LogTypes.COLLECTION, "cards filtered with {regex,owned,notOwned,manaCost,hero}= {" +
-                        filter.getRegex() +","+ Boolean.toString(filter.isOwned()) +","+ Boolean.toString(filter.isNotOwned())
-                        + ","+Integer.toString(filter.getManaCost()) +","+ filter.getHero()+"}");
+                        filter.getRegex() + "," + Boolean.toString(filter.isOwned()) + "," + Boolean.toString(filter.isNotOwned())
+                        + "," + Integer.toString(filter.getManaCost()) + "," + filter.getHero() + "}");
             }
         });
         ////////////////////////////
@@ -115,99 +116,108 @@ public class CollectionPanel extends GamePanel {
         filterPanel.setDeckHandlerListener(new DeckHandlerListener() {
             @Override
             public void renameDeck(String newName) {
-                try{
+                try {
                     collectionHandler.renameDeck(selectedDeck, newName);
-                    JOptionPane.showMessageDialog(null , selectedDeck+" has been renamed to "+newName
-                            , "Done!",JOptionPane.INFORMATION_MESSAGE);
-                    revalidateDecks();
-                }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, selectedDeck + " has been renamed to " + newName
+                            , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    revalidateSelections();
+                } catch (Exception e) {
                     handleException(e);
                 }
             }
 
             @Override
             public void deleteDeck() {
-                try{
+                try {
                     collectionHandler.deleteDeck(selectedDeck);
-                    JOptionPane.showMessageDialog(null , selectedDeck+" has been deleted from player's decks"
-                            , "Done!",JOptionPane.INFORMATION_MESSAGE);
-                    revalidateDecks();
-                }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, selectedDeck + " has been deleted from player's decks"
+                            , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    revalidateSelections();
+                } catch (Exception e) {
                     handleException(e);
                 }
             }
 
             @Override
             public void removeCard() {
-                try{
+                try {
                     collectionHandler.removeCardFromDeck(selectedDeck, selectedCard);
-                    JOptionPane.showMessageDialog(null , selectedCard+" has been removed from "+selectedDeck
-                            , "Done!",JOptionPane.INFORMATION_MESSAGE);
-                    revalidateDecks();
-                }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, selectedCard + " has been removed from " + selectedDeck
+                            , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    revalidateSelections();
+                } catch (Exception e) {
                     handleException(e);
                 }
             }
 
             @Override
             public void addCard() {
-                try{
-                    collectionHandler.addCardToDeck(selectedDeck , selectedCard);
-                    JOptionPane.showMessageDialog(null , selectedCard+" has been added to "+selectedDeck
-                            , "Done!",JOptionPane.INFORMATION_MESSAGE);
-                    revalidateDecks();
-                }catch (Exception e){
-                    handleException(e);
+                if (collectionHandler.playerHas(selectedCard)) {
+                    try {
+                        collectionHandler.addCardToDeck(selectedDeck, selectedCard);
+                        JOptionPane.showMessageDialog(null, selectedCard + " has been added to " + selectedDeck
+                                , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                        revalidateSelections();
+                    } catch (Exception e) {
+                        handleException(e);
+                    }
+                } else {
+                    Logger.log(LogTypes.COLLECTION, "player hasn't this card");
+                    int confirm = JOptionPane.showConfirmDialog(null,
+                            "You must purchase " + selectedCard + " first.\n Redirect to shop??");
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        Administer.getInstance().runShop();
+                    }
+
                 }
 
             }
 
             @Override
             public void setCurrentDeck() {
-                try{
+                try {
                     collectionHandler.setCurrentDeck(selectedDeck);
-                    JOptionPane.showMessageDialog(null , selectedDeck+" has been set as current deck"
-                            , "Done!",JOptionPane.INFORMATION_MESSAGE);
-                    revalidateDecks();
-                }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, selectedDeck + " has been set as current deck"
+                            , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    revalidateSelections();
+                } catch (Exception e) {
                     handleException(e);
                 }
             }
 
             @Override
             public void changeHero(HeroTypes heroName) {
-                try{
+                try {
                     collectionHandler.changeDeckHero(selectedDeck, heroName);
-                    JOptionPane.showMessageDialog(null , selectedDeck+"'s hero has been changed to "+heroName.toString()
-                            , "Done!",JOptionPane.INFORMATION_MESSAGE);
-                    revalidateDecks();
-                }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, selectedDeck + "'s hero has been changed to " + heroName.toString()
+                            , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    revalidateSelections();
+                } catch (Exception e) {
                     handleException(e);
                 }
             }
 
             @Override
             public void createNewDeck(String newDeckName, String newDeckHero) {
-                try{
-                    collectionHandler.createNewDeck(newDeckName , newDeckHero);
-                    JOptionPane.showMessageDialog(null , newDeckName+" is now available with "+newDeckHero
-                            , "Done!",JOptionPane.INFORMATION_MESSAGE);
-                    revalidateDecks();
-                }catch (Exception e){
+                try {
+                    collectionHandler.createNewDeck(newDeckName, newDeckHero);
+                    JOptionPane.showMessageDialog(null, newDeckName + " is now available with " + newDeckHero
+                            , "Done!", JOptionPane.INFORMATION_MESSAGE);
+                    revalidateSelections();
+                } catch (Exception e) {
                     handleException(e);
                 }
             }
 
             @Override
             public void cancel() {
-                deckPanel.unselectDeck();
-                cardPanel.unselectCard();
+                revalidateSelections();
             }
 
         });
     }
 
-    private void revalidateDecks() {
+    private void revalidateSelections() {
         filterPanel.setDeckHandlerEditable(false);
         cardPanel.unselectCard();
         deckCardsPanel.unselectCard();
@@ -216,10 +226,10 @@ public class CollectionPanel extends GamePanel {
         deckPanel.setDecks(collectionHandler.getDecks());
     }
 
-    private void handleException(Exception e){
-        JOptionPane.showMessageDialog(null , e.getMessage() , "Error!",JOptionPane.ERROR_MESSAGE);
+    private void handleException(Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
-        Logger.logError(LogTypes.COLLECTION , e);
+        Logger.logError(LogTypes.COLLECTION, e);
     }
 
 

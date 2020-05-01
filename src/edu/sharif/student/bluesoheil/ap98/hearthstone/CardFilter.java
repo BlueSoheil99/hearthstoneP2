@@ -44,6 +44,17 @@ public class CardFilter {
         return instance;
     }
 
+    public boolean playerCardsContain(String cardName) {
+        boolean ans = false;
+        for (Card card : playerTotalCards) {
+            if (card.getName().toUpperCase().equals(cardName)) {
+                ans = true;
+                break;
+            }
+        }
+        return ans;
+    }
+
     public ArrayList<CardShape> filter(String regex, boolean owned, boolean notOwned, int manaCost, String hero) {
         this.regex = regex.toUpperCase();
         this.owned = owned;
@@ -63,13 +74,13 @@ public class CardFilter {
         filterCardsWithMana();
         filterCardsWithHero();
 
-        if (owned){
+        if (owned) {
             ArrayList<Card> ownedCards = getOwnedFilterCards();
-            for (Card card : ownedCards) finalFilteredCards.add(getShapeCard(card , true));
+            for (Card card : ownedCards) finalFilteredCards.add(getShapeCard(card, true));
         }
-        if (notOwned){
+        if (notOwned) {
             ArrayList<Card> notOwnedCards = getNotOwnedFilterCards();
-            for (Card card : notOwnedCards) finalFilteredCards.add(getShapeCard(card , false));
+            for (Card card : notOwnedCards) finalFilteredCards.add(getShapeCard(card, false));
         }
         return finalFilteredCards;
     }
@@ -108,15 +119,15 @@ public class CardFilter {
     private ArrayList<Card> getNotOwnedFilterCards() {
         ArrayList<Card> notOwnedCards = new ArrayList<>();
         for (Card card : filteredCards) {
-            if (! playerTotalCards.contains(card)) {
+            if (!playerTotalCards.contains(card)) {
                 notOwnedCards.add(card);
             }
         }
         return notOwnedCards;
     }
 
-    private CardShape getShapeCard(Card card , boolean owned ) {
-        return new CardShape(card.getName().toUpperCase() , cardsAndImages.get(card.getName().toUpperCase()),owned);
+    private CardShape getShapeCard(Card card, boolean owned) {
+        return new CardShape(card.getName().toUpperCase(), cardsAndImages.get(card.getName().toUpperCase()), owned);
     }
 
 }
