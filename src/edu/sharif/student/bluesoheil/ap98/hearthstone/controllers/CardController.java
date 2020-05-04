@@ -41,6 +41,9 @@ public class CardController {
         }
         return instance;
     }
+    public static void reset(){
+        instance = null;
+    }
 
     public HashMap<String, Card> getGameTotalCards() {
         return gameTotalCards;
@@ -134,7 +137,8 @@ public class CardController {
     }
 
     public void  loadPlayerCards(){
-        playerTotalCards = playerController.getCurrentPlayer().getPlayerTotalCards();
+        ArrayList<Card> cards = playerController.getCurrentPlayer().getPlayerTotalCards();
+        playerTotalCards = cards;
         //we should revalidate our cards. current cards are different from the cards in the gameTotalCards
         revalidateCards(playerTotalCards);
     }

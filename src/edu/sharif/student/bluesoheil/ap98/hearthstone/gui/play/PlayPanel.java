@@ -1,6 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.play;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.PlayHandler;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.GamePanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardPanel;
 
@@ -11,9 +12,11 @@ import java.awt.event.ActionListener;
 
 public class PlayPanel extends GamePanel {
 
+    private PlayHandler playHandler;
     private PauseMenu pauseMenu;
-    private CardPanel playerCards;
-    private CardPanel opponentCards;
+    private CardPanel playerCards,opponentCards;
+    private HeroPanel playerHeroPanel , opponentHeroPanel;
+
 
 
     @Override
@@ -23,31 +26,16 @@ public class PlayPanel extends GamePanel {
 
     @Override
     protected void createFields() {
+        playHandler = PlayHandler.getInstance();
         pauseMenu = PauseMenu.getInstance();
     }
 
     @Override
     protected void init() {
 
-        setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridy=0;
-        c.gridx=0;
 
-        ImageIcon icon = new ImageIcon("src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Images/back.png");
-        JButton button = new JButton("", icon);
-        button.setBorderPainted(false);
-        button.setContentAreaFilled(false);
-        c.gridy=1;
-        add(button,c);
-        c.gridx=1;
         setLayout(new BorderLayout());
-        add(new EventBox() , BorderLayout.SOUTH);
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Administer.getInstance().back();
-            }
-        });
+        add(new JScrollPane(new EventBox()) , BorderLayout.SOUTH);
+
     }
 }

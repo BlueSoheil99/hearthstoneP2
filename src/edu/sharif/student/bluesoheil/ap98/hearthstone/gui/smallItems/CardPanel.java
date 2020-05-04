@@ -1,5 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 
+import com.sun.deploy.security.SelectableSecurityManager;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.ClickListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.SidePanel;
@@ -20,6 +21,7 @@ public class CardPanel extends SidePanel implements ActionListener {
     private CardShape selectedCard;
     private Border lastBorder;
     private ClickListener clickListener;
+    private boolean isPassive;
 
     public CardPanel() {
         super();
@@ -37,6 +39,11 @@ public class CardPanel extends SidePanel implements ActionListener {
         setCards(cardShapes, GuiConstants.getInstance().getNumberOfCardsInRow());
     }
 
+    public void setPassives(ArrayList<CardShape> passives){
+        setCards(passives);
+        isPassive = true;
+    }
+
     private void paintCardsInPanel(int numberOfCardsInRow) {
         //remember! we don't want a horizontal scroll!
         setEmpty();
@@ -47,6 +54,7 @@ public class CardPanel extends SidePanel implements ActionListener {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridy = 0;
         gc.gridx = 0;
+        gc.insets = new Insets(1,1,1,1);
         int x = 0;
         for (CardShape cardShape : cards) {
             if (x > numberOfCardsInRow - 1) {
@@ -72,6 +80,7 @@ public class CardPanel extends SidePanel implements ActionListener {
 
     public void setClickListener(ClickListener listener) {
         this.clickListener = listener;
+
     }
 
     @Override
@@ -83,7 +92,10 @@ public class CardPanel extends SidePanel implements ActionListener {
             selectedCard.setBorder(
                     BorderFactory.createMatteBorder(6,6,6,6,new Color(16, 90, 115)));
             clickListener.select(selectedCard.getCardName());
-            Logger.log(LogTypes.CLICK_BUTTON, "card: " + selectedCard.getCardName() + "  selected.");
+
+            if (isPassive)Logger.log(LogTypes.CLICK_BUTTON, "passive: " + selectedCard.getCardName() + "  selected.");
+            else Logger.log(LogTypes.CLICK_BUTTON, "card: " + selectedCard.getCardName() + "  selected.");
         }
+
     }
 }

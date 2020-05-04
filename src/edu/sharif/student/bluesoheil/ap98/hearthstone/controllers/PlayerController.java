@@ -22,18 +22,23 @@ public class PlayerController {
 
     private Player currentPlayer;
 
-    private PlayerController(){  }
+    private PlayerController() {
+    }
 
     /*
      **** getters and setters
      */
-    public static PlayerController getInstance(){
+    public static PlayerController getInstance() {
         if (playerController != null) return playerController;
         playerController = new PlayerController();
         return playerController;
     }
 
-    public Player getCurrentPlayer(){
+    public static void reset() {
+        playerController = null;
+    }
+
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
@@ -57,8 +62,8 @@ public class PlayerController {
     /*
      **** Methods
      */
-    public void signUp(String username , String password) throws PlayerControllerException {
-        if (new File(profilesPath +"/" + username + ".json").exists()) {
+    public void signUp(String username, String password) throws PlayerControllerException {
+        if (new File(profilesPath + "/" + username + ".json").exists()) {
             throw new PlayerControllerException("USERNAME IS INVALID");
         } else {
             Player player = new Player(username, password);
@@ -67,53 +72,53 @@ public class PlayerController {
         }
     }
 
-    public void login(String username , String password) throws PlayerControllerException {
+    public void login(String username, String password) throws PlayerControllerException {
         if (allPlayersContain(username, password)) {
 //            CardController.getInstance().initGameTotalCards();
-            currentPlayer = getPlayer(username);
+            setCurrentPlayer(getPlayer(username));
             //todo load the carts here or in setCurrentPlayer
             CardController.getInstance().loadPlayerCards();
             DeckController.getInstance().loadPlayerDecks();
 
-//            Logger.initLogger(currentPlayer);
-//            Logger.log(LogTypes.PLAYER , currentPlayer.getUserName()+" logged in");
 
         } else {
-            throw new  PlayerControllerException("username or password is incorrect");
+            throw new PlayerControllerException("username or password is incorrect");
         }
     }
 
+    public void setCurrentPlayer(Player player) {
+        currentPlayer = player;
+    }
+
     public void deletePlayer(String password) throws PlayerControllerException {
-        if(password.equals(currentPlayer.getPassword())){
-            File file= new File(currentPlayer.getProfilePath());
-            if ( ! file.delete()){
+        if (password.equals(currentPlayer.getPassword())) {
+            File file = new File(currentPlayer.getProfilePath());
+            if (!file.delete()) {
                 throw new PlayerControllerException(" Deleting failed ");
-            }else {     //when deleting is done successfully
-                Logger.log(LogTypes.PLAYER , "successfully deleted.");
+            } else {     //when deleting is done successfully
+                Logger.log(LogTypes.PLAYER, "successfully deleted.");
                 Logger.closeLogfile(); //according to finalizeLogfile method we should first close logFile normally and then finalize log
                 Logger.finalizeLogfile(currentPlayer);
             }
-        }
-        else{
+        } else {
             throw new PlayerControllerException(" Wrong password ");
         }
     }
 
-    public void logOut(){
+    public void logOut() {
         //todo logOut
         saveData();
-        Logger.log(LogTypes.PLAYER ,currentPlayer.getUserName()+" logged out" );
+        Logger.log(LogTypes.PLAYER, currentPlayer.getUserName() + " logged out");
         Logger.closeLogfile();
-//        currentPlayer = null; you might need this line
     }
 
-    private boolean allPlayersContain(String username , String password) {
+    private boolean allPlayersContain(String username, String password) {
         boolean ans = false;
 
         try {
             JsonParser jsonParser = new JsonParser();
 
-            FileReader reader = new FileReader(Constants.getProfilesPath()+"/"+ username + ".json");
+            FileReader reader = new FileReader(Constants.getProfilesPath() + "/" + username + ".json");
             // if this file doesn't exist, we handle the exception with no message and we print an error in signUP panel instead
             // , because this method is designed to give us true or false and exception is not expected from allPlayersContain
             JsonObject json = (JsonObject) jsonParser.parse(reader);
@@ -127,46 +132,45 @@ public class PlayerController {
             // if passwords don't match, we handle the exception with no message and we print an error in CLIRunner instead
             // , because this method is designed to give us true or false and "exception" is not expected from allPlayersContain
 
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return ans;
     }
 
-    private Player getPlayer(String username){
-        Player player =null ;
+    private Player getPlayer(String username) {
+        Player player = null;
         Gson gson = new Gson();
         JsonParser jsonParser = new JsonParser();
         try {
-            FileReader reader = new FileReader(profilesPath+ "/" + username+".json");
-            player = gson.fromJson(jsonParser.parse(reader ), Player.class); //here we make a json element and then turn it into a Player object
+            FileReader reader = new FileReader(profilesPath + "/" + username + ".json");
+            player = gson.fromJson(jsonParser.parse(reader), Player.class); //here we make a json element and then turn it into a Player object
             reader.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return player;
     }
 
-    private void saveData(){
+    private void saveData() {
 //        setPlayerTotalCards(CardManagement.getPlayerTotalCards() );
 //        setHeroesAllDeckCards(CardManagement.getHeroesAllDeckCards() );
         saveDataForTheFirstTime(currentPlayer); //todo check if we can merge these 2 methods or not
     }
 
-    private void saveDataForTheFirstTime(Player player){
-        try{
+    private void saveDataForTheFirstTime(Player player) {
+        try {
             FileWriter writer = new FileWriter(player.getProfilePath());
             PrintWriter printer = new PrintWriter(writer);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String json = gson.toJson(player);
-            printer.println( json );
+            printer.println(json);
             printer.close();
-        }catch (IOException e ){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

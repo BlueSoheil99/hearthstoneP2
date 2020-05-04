@@ -24,7 +24,6 @@ public class ExitButton extends JButton {
 
             }
         });
-        setText("exit");
     }
 
     public static ExitButton getInstance() {

@@ -77,7 +77,7 @@ public class MenuPanel extends GamePanel {
         add(settingBtn, c);
         add(exitBtn, c);
         c.weighty = 4;
-        add(LogOutButton.getInstance(), c);
+        add(new LogOutButton(), c);
 
     }
 

@@ -26,6 +26,9 @@ public class DeckController {
         if (instance == null) instance = new DeckController();
         return instance;
     }
+    public static void reset(){
+        instance = null;
+    }
 
     public static ArrayList<Deck> getDefaultDecks() {
         CardConfig configs = CardConfig.getInstance();

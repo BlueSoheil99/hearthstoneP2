@@ -7,6 +7,7 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.SidePanel;
 import javax.swing.*;
 import java.awt.*;
 
+//todo by pressing esc button it must appear
 public class PauseMenu extends SidePanel {
     private static PauseMenu instance;
 

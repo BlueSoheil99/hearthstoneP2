@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 public class LogOutButton extends JButton {
     private static LogOutButton instance;
 
-    private LogOutButton(){
+    public LogOutButton(){
         super();
         setIcon(new ImageIcon(GuiConstants.getInstance().getLogOutPath()));
         setContentAreaFilled(false);
@@ -30,9 +30,9 @@ public class LogOutButton extends JButton {
         });
     }
 
-    public static LogOutButton getInstance(){
-        if (instance == null) instance = new LogOutButton();
-        return  instance;
-    }
+//    public static LogOutButton getInstance(){
+//        if (instance == null) instance = new LogOutButton();
+//        return  instance;
+//    }
 
 }

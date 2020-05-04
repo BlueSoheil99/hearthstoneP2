@@ -3,12 +3,10 @@ package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
-import java.nio.file.Files;
 
 //todo change JButton to something less complicated
 public class CardShape extends JButton {
@@ -18,29 +16,45 @@ public class CardShape extends JButton {
     private ImageIcon icon;
 
     public CardShape(String cardName, BufferedImage image) {
-        this.cardName = cardName;
-//        setPreferredSize(new Dimension(200,300));
-        if (image != null) icon = new ImageIcon(image);
-        setPreferredSize(new Dimension(CARD_WIDTH , CARD_HEIGHT));
-//        Image img = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
-//        icon = new ImageIcon( icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH)); //todo make it faster!
-        setIcon(icon);
-        setOpaque(false);
-        setContentAreaFilled(false);
+        this(cardName , image , true);
+    }
 
+    public CardShape(String cardName, String description){
+        this(cardName , (BufferedImage) null, true);
+        setMinimumSize(new Dimension(2*CARD_WIDTH , 2*CARD_HEIGHT));
+        setBackground(new Color(192, 135, 107));
+        setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(62, 164, 176)));
+        JLabel name =new JLabel(cardName);
+        JLabel des = new JLabel( "<html>"+description.replaceAll("\n", "<br/>") + "</html>");
+        setLayout(new GridBagLayout());
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridy=0;
+        gc.weighty=1;
+        add(name, gc);
+        gc.gridy++;
+        gc.weighty=2;
+        add(des, gc);
     }
 
     public CardShape(String cardName, BufferedImage image, boolean owned) {
-        this(cardName, image);
+        this.cardName = cardName;
+        if (image != null) icon = new ImageIcon(image);
+        setPreferredSize(new Dimension(CARD_WIDTH , CARD_HEIGHT));
+        //i manually changed my images dimensions so we don't need methods below
+//        Image img = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
+//        icon = new ImageIcon( icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH));
+        setIcon(icon);
+        setOpaque(false);
+        setContentAreaFilled(false);
         if (!owned) {
-            // 1
+            // 1 red border
 //          Border border = getBorder();
 //          Border border1 = BorderFactory.createMatteBorder(5,10,10,5,Color.RED);
 //          setBorder(BorderFactory.createCompoundBorder(border1 , border));
-            // 2
+            // 2  red image
 //            BufferedImage img =copyImage(image);
 //            icon = new ImageIcon(colorImage(img));
-            // 3
+            // 3  different background
             setContentAreaFilled(true);
             setBackground(new Color(192, 94, 78));
             setOpaque(true);
