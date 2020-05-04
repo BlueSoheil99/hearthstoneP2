@@ -1,14 +1,15 @@
-package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection;
+package edu.sharif.student.bluesoheil.ap98.hearthstone.connectors;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.CardFilter;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.DeckControllerException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.DeckControllerException;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Heroes.HeroTypes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * this class is created to have no method definitions related to logic in Collection panel
+ */
 public class CollectionHandler {
     private static CollectionHandler instance = new CollectionHandler();
     private CardFilter cardFilter;

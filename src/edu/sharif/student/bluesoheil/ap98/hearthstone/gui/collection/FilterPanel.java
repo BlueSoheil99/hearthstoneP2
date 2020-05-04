@@ -1,7 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.DeckHandlerListener;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.FilterListener;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.DeckHandlerListener;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.FilterListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.NavigationPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.SidePanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Heroes.HeroTypes;

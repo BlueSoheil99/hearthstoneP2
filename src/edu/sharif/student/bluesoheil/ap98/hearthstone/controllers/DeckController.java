@@ -1,5 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.controllers;
 
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.DeckControllerException;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Heroes.HeroTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Deck;
@@ -77,7 +78,7 @@ public class DeckController {
      */
     public void loadPlayerDecks() {
         playerDecks = PlayerController.getInstance().getPlayerDecks();
-        //revalidate decks
+        //..revalidate decks..
         //we should revalidate our cards. current cards are different from the cards in the gameTotalCards and playerTotalCards
         for (Deck deck : playerDecks) {
             CardController.getInstance().revalidateCards(deck.getCards());

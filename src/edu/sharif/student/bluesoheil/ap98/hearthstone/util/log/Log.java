@@ -10,4 +10,12 @@ public class Log {
         this.description = description;
         this.type = type;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LogTypes getType() {
+        return type;
+    }
 }

@@ -1,4 +1,4 @@
-package edu.sharif.student.bluesoheil.ap98.hearthstone;
+package edu.sharif.student.bluesoheil.ap98.hearthstone.connectors;
 
 import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.CardController;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;

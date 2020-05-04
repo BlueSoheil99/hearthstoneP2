@@ -1,6 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.Administer;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;

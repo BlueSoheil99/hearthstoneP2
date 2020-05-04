@@ -107,8 +107,12 @@ public class Logger {
         logger.recentLogs.add(new Log(event, exceptionAsString));
     }
 
-    public static ArrayList<Log> getRecentLog() {
-        return logger.recentLogs;
+    public static ArrayList<String> getEventLogs() {
+        ArrayList<String> playEvents = new ArrayList<>();
+        for (Log log: logger.recentLogs){
+            if (log.getType()==LogTypes.PLAY) playEvents.add(log.getDescription());
+        }
+        return playEvents;
     }
 
 }

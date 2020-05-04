@@ -1,7 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.PlayerControllerException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.PlayerControllerException;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.NavigationPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;

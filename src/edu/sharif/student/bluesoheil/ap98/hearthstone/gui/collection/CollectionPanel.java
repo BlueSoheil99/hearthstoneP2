@@ -1,14 +1,14 @@
-package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
+package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.ClickListener;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.DeckHandlerListener;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.FilterListener;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection.CollectionHandler;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.GamePanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardPanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.ClickListener;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.DeckHandlerListener;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.FilterListener;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.CollectionHandler;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.DeckPanel;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection.FilterEvent;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection.FilterPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Heroes.HeroTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.CollectionConfig;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;

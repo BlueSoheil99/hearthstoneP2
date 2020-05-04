@@ -1,7 +1,7 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.ClickListener;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.ClickListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.DeckPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.NavigationPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.SidePanel;

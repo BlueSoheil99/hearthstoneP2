@@ -1,8 +1,10 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.ClickListener;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.CardControllerException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.CardControllerException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.GuiException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardPanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.ClickListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.NavigationPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.SidePanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;

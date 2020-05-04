@@ -1,6 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.Administer;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.LogOutButton;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.MenuConfig;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.ImageLoader;

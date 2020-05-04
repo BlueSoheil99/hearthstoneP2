@@ -1,11 +1,9 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.controllers;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.CardControllerException;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.*;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.ConfigLoader;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.Configs;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.Constants;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.LogicConfigs.CardConfig;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.ImageLoader;

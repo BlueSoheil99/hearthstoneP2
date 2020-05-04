@@ -1,6 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.ClickListener;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.ClickListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
 

@@ -1,7 +1,12 @@
-package edu.sharif.student.bluesoheil.ap98.hearthstone;
+package edu.sharif.student.bluesoheil.ap98.hearthstone.connectors;
 
+import edu.sharif.student.bluesoheil.ap98.hearthstone.Main;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.CardControllerException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.DeckControllerException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.PlayerControllerException;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.*;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.CollectionPanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.collection.CollectionPanel;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.play.PlayPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter.LoginPanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter.SignUpPanel;
@@ -12,7 +17,6 @@ import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Player;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.LogTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.log.Logger;
-import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;

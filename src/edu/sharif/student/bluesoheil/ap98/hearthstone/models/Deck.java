@@ -1,7 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.models;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-import edu.sharif.student.bluesoheil.ap98.hearthstone.controllers.DeckControllerException;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.exceptions.DeckControllerException;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.Heroes.HeroTypes;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.models.cards.Card;
 
@@ -11,7 +10,7 @@ import java.util.Map;
 
 public class Deck {
     //TODO use configuration here.....think about how to manage the same cards we have
-    private static final int MAXIMUM_NUMBER_OF_CARDS = 20;
+    private static final int MAXIMUM_NUMBER_OF_CARDS = 15;
     private static final int MINIMUM_NUMBER_OF_CARDS = 5;
 
     private String name;
@@ -27,7 +26,7 @@ public class Deck {
             this.hero = hero;
             gamesPlayed = 0;
             wins = 0;
-            this.cards = cards; //is it right?!
+            this.cards = cards;
             cardsUsage = new HashMap<>();
             for (Card card : cards) cardsUsage.put(card.getName(), 0);
     }

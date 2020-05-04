@@ -3,7 +3,7 @@ package edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.LogicC
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.ConfigLoader;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.Configs;
 
-public class CardConfig {
+public class CardConfig extends LogicConfig{
     private static CardConfig instance;
     private Configs config;
     private String[] defaultCards;
@@ -20,7 +20,17 @@ public class CardConfig {
 
 
     private CardConfig(){
+        super();
+    }
+
+    @Override
+    protected void setProperties() {
         config = ConfigLoader.getInstance().getCardProperties();
+
+    }
+
+    @Override
+    protected void initialize() {
         defaultCards = config.readArrays("defaultPlayerTotalCards");
         defaultMageDeckCards = config.readArrays("defaultMageDeckCards");
         defaultRogueDeckCards = config.readArrays("defaultRogueDeckCards");

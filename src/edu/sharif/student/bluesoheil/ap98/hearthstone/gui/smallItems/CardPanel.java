@@ -1,6 +1,6 @@
-package edu.sharif.student.bluesoheil.ap98.hearthstone.gui;
+package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Interefaces.ClickListener;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.interefaces.ClickListener;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.CardShape;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.gui.smallItems.SidePanel;
 import edu.sharif.student.bluesoheil.ap98.hearthstone.util.Configuration.GuiConfigs.GuiConstants;
@@ -27,13 +27,13 @@ public class CardPanel extends SidePanel implements ActionListener {
 
     }
 
-    void setCards(ArrayList<CardShape> cardShapes, int cardsInRow) {
+    public void setCards(ArrayList<CardShape> cardShapes, int cardsInRow) {
         cards = cardShapes;
         paintCardsInPanel(cardsInRow);
         for (CardShape cardShape : cards) cardShape.addActionListener(this);
     }
 
-    void setCards(ArrayList<CardShape> cardShapes) {
+    public void setCards(ArrayList<CardShape> cardShapes) {
         setCards(cardShapes, GuiConstants.getInstance().getNumberOfCardsInRow());
     }
 

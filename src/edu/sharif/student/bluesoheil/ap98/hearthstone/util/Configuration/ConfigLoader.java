@@ -14,7 +14,7 @@ public class ConfigLoader {
     private Configs addresses;
     private static String defaultAddress = "src/res/edu/sharif/student/bluesoheil/ap98/hearthstone/Properties/MainConfigFile.properties";
     private Configs constants;
-    private Configs frameConfigs;
+    private Configs playConfigs;
     private Configs panelConfigs;
     private Configs startPanelConfigs;
     private Configs collectionConfigs;
@@ -37,8 +37,12 @@ public class ConfigLoader {
     private void initialize(String address) {
         FileReader reader;
         constants = new Configs();
-        frameConfigs = new Configs();
-        panelConfigs = new Configs();
+        playConfigs = new Configs();
+        startPanelConfigs = new Configs();
+        collectionConfigs = new Configs();
+        cardConfigs = new Configs();
+        menuConfigs = new Configs();
+        guiConstants = new Configs();
         try {
             addresses = new Configs();
             reader = new FileReader(address);
@@ -72,11 +76,7 @@ public class ConfigLoader {
                     e.printStackTrace();
                 }
 
-                if (lowerCase.contains("frame")) {
-//                    System.out.println("frame added : " + key);
-                    frameConfigs = property;
-
-                } else if (lowerCase.contains("startpanel")) {
+                if (lowerCase.contains("startpanel")) {
                     startPanelConfigs = property;
 
                 } else if (lowerCase.contains("card")) {
@@ -91,6 +91,9 @@ public class ConfigLoader {
                 } else if (lowerCase.contains("guiconstants")) {
                     guiConstants = property;
 
+                } else if (lowerCase.contains("play")) {
+                    playConfigs = property;
+
                 } else if (lowerCase.contains("collection")) {
                     collectionConfigs = property;
 
@@ -100,9 +103,9 @@ public class ConfigLoader {
                 } else
                     properties = property;
 
-
             }
         }
+
     }
 
     // due to subPackages, we couldn't have protected methods here
@@ -115,8 +118,8 @@ public class ConfigLoader {
         return constants;
     }
 
-    public Configs getFrameProperties() {
-        return frameConfigs;
+    public Configs getPlayProperties() {
+        return playConfigs;
     }
 
     public Configs getPanelProperties() {

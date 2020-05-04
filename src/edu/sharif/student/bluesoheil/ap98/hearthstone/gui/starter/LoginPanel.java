@@ -1,6 +1,6 @@
 package edu.sharif.student.bluesoheil.ap98.hearthstone.gui.starter;
 
-import edu.sharif.student.bluesoheil.ap98.hearthstone.Administer;
+import edu.sharif.student.bluesoheil.ap98.hearthstone.connectors.Administer;
 
 import javax.swing.*;
 import java.awt.*;
